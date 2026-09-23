@@ -37,6 +37,14 @@
   min-width: 0;
 }
 
+.status-theme {
+  max-width: 220px;
+}
+
+.status-system {
+  max-width: 320px;
+}
+
 .update-dot {
   width: 6px;
   height: 6px;
@@ -807,6 +815,15 @@
 
   .status-bar .status-field.grow {
     flex-basis: 100%;
+  }
+
+  .status-system {
+    flex: 1 1 auto;
+    max-width: none;
+  }
+
+  .status-theme {
+    flex: 0 1 auto;
   }
 
   .finance-summary {

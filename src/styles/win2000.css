@@ -521,6 +521,25 @@ u.ak {
   flex: 1;
 }
 
+/* 带提示框的分栏不能裁剪溢出，文字省略交给内部的 .status-text */
+.status-field.tooltip-anchor {
+  overflow: visible;
+}
+
+.status-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status-bar .tooltip-anchor .tooltip-box {
+  top: auto;
+  bottom: calc(100% + 4px);
+  left: auto;
+  right: 0;
+}
+
 /* ---------- 指示灯、徽章 ---------- */
 
 .led {

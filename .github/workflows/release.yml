@@ -37,6 +37,8 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+        env:
+          THEME_VERSION: ${{ env.RELEASE_TAG }}
 
       - name: Read release title
         run: |

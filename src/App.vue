@@ -36,13 +36,18 @@
 
       <footer class="status-bar">
         <div class="status-field grow">{{ windowState.status }}</div>
-        <div class="status-field tooltip-anchor" :tabindex="hasWorkersUpdate ? 0 : undefined">
-          <span>V{{ version || '-' }}</span>
+        <div class="status-field status-system tooltip-anchor" :tabindex="hasWorkersUpdate ? 0 : undefined">
+          <span class="status-text">
+            Powered by <a href="https://github.com/huilang-me/CF-Server-Monitor/" target="_blank" rel="noopener">CF-Server-Monitor</a> V{{ version || '-' }}
+          </span>
           <span v-if="hasWorkersUpdate" class="update-dot" aria-hidden="true"></span>
           <span v-if="hasWorkersUpdate" class="tooltip-box" role="tooltip">{{ trans.w2kUpdateAvailable }} V{{ latestWorkersVersion }}</span>
         </div>
-        <div class="status-field">
-          Powered by&nbsp;<a href="https://github.com/huilang-me/CF-Server-Monitor/" target="_blank" rel="noopener">CF-Server-Monitor</a>
+        <div class="status-field status-theme tooltip-anchor">
+          <span class="status-text">
+            {{ trans.w2kTheme }}: <a :href="THEME_REPO_URL" target="_blank" rel="noopener">{{ THEME_SHORT_NAME }}</a>&nbsp;<a v-if="themeReleaseUrl" :href="themeReleaseUrl" target="_blank" rel="noopener">{{ THEME_VERSION }}</a><span v-else>{{ THEME_VERSION }}</span>
+          </span>
+          <span class="tooltip-box" role="tooltip">{{ THEME_FULL_NAME }} {{ THEME_VERSION }}</span>
         </div>
       </footer>
     </div>
@@ -73,6 +78,7 @@ import { LAST_WORKERS_VERSION, VERSION } from './utils/api'
 import { getAdminUrl, getApiBases, getTitle, hasMultipleApiBases } from './utils/config'
 import { DEFAULT_SITE_TITLE } from './utils/constants'
 import { windowState } from './utils/windowState'
+import { THEME_FULL_NAME, THEME_REPO_URL, THEME_SHORT_NAME, THEME_VERSION, themeReleaseUrl } from './utils/themeInfo'
 
 const appConfig = inject('appConfig', {})
 const trans = useTranslation()
