@@ -2,7 +2,7 @@
 
 > CF-Server-Monitor 第三方主题
 >
-> 状态：设计稿（尚未开始编码）
+> 状态：已实现（见仓库代码）
 > 视觉稿（私有链接）：https://claude.ai/artifact/PfpkW3UTn9XzY4nSZUohfH
 
 ## 1. 原则
