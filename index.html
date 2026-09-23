@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloudflare Server Monitor</title>
+  <meta name="apiBase" content="">
+  <style>
+    #boot { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 16px; background: #1b2b40; font: 12px Tahoma, "SimSun", "宋体", "Microsoft YaHei", sans-serif; }
+    body.light #boot { background: #3a6ea5; }
+    #boot .boot-win { width: 360px; max-width: 100%; padding: 3px; background: #d4d0c8; color: #000; border: 1px solid; border-color: #d4d0c8 #404040 #404040 #d4d0c8; box-shadow: inset 1px 1px #fff, inset -1px -1px #808080; }
+    #boot .boot-title { height: 18px; padding: 0 3px; display: flex; align-items: center; font-weight: bold; font-size: 11px; color: #fff; background: linear-gradient(90deg, #0a246a, #a6caf0); }
+    #boot .boot-body { padding: 14px; display: flex; flex-direction: column; gap: 8px; line-height: 1.6; }
+    #boot .boot-bar { height: 18px; padding: 2px; background: #fff; border: 1px solid; border-color: #808080 #fff #fff #808080; overflow: hidden; }
+    #boot .boot-fill { width: 40%; height: 100%; background: repeating-linear-gradient(90deg, #0a246a 0 8px, transparent 8px 10px); animation: boot-slide 1.6s steps(12) infinite; }
+    #boot .boot-err { color: #a00000; }
+    #boot .boot-hint { color: #404040; }
+    @keyframes boot-slide { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+  </style>
+  <script type="module" crossorigin src="./assets/index-DlYjoKm5.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index--nvVR9tN.css">
+</head>
+<body>
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme_preference') || 'auto';
+        var light = t === 'light' || (t !== 'dark' && !(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches));
+        if (light) document.body.classList.add('light');
+      } catch (e) {}
+    })();
+  </script>
+  <div id="boot" role="status" aria-live="polite">
+    <div class="boot-win">
+      <div class="boot-title">Cloudflare Server Monitor</div>
+      <div class="boot-body">
+        <span id="boot-text">Loading...</span>
+        <div class="boot-bar"><div class="boot-fill"></div></div>
+        <div id="turnstile-container"></div>
+      </div>
+    </div>
+  </div>
+  <div id="app"></div>
+</body>
+</html>
