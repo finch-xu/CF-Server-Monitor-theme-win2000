@@ -9,7 +9,8 @@
     "dev": "vite",
     "build": "vite build",
     "build:github-page": "node scripts/build-github-page.js",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test"
   },
   "dependencies": {
     "chart.js": "^4.4.0",
