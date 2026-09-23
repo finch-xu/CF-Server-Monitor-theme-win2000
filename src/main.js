@@ -3,6 +3,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import './styles/win2000.css'
+import './styles/xp.css'
+import './styles/win31.css'
 import './styles/app.css'
 import { applyDefaultLanguage, currentLang, translations } from './utils/i18n'
 import './utils/themeTexts'
@@ -12,6 +14,7 @@ import { LAST_AGENT_VERSION, LAST_WORKERS_VERSION, VERSION, normalizeLiveSocketT
 import { resolveDisplayMode } from './utils/displayMode'
 import { normalizeThemeOptions } from './utils/themeOptions'
 import { applyDefaultTheme } from './composables/useTheme'
+import { applyDefaultStyle, applyStoredStyle } from './composables/useStyle'
 import { windowState } from './utils/windowState'
 import {
   clearTurnstileToken,
@@ -206,6 +209,9 @@ async function initApp() {
   applyVersions(config)
   applyDefaultTheme(config.preferred_theme)
   applyDefaultLanguage(config.default_language)
+  // 读不到站点配置时沿用上次缓存的站点风格，避免把缓存重置成 win2000
+  if (config.load_error || config.turnstile_mismatch) applyStoredStyle()
+  else applyDefaultStyle(config.theme_options?.win2000_style)
 
   if (config.turnstile_mismatch) {
     showBootError(trans().turnstileSiteKeyMismatch, trans().turnstileSiteKeyMismatchDesc)

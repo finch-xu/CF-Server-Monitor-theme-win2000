@@ -15,6 +15,18 @@
     #boot .boot-fill { width: 40%; height: 100%; background: repeating-linear-gradient(90deg, #0a246a 0 8px, transparent 8px 10px); animation: boot-slide 1.6s steps(12) infinite; }
     #boot .boot-err { color: #a00000; }
     #boot .boot-hint { color: #404040; }
+    body.style-xp #boot { background: #0b2447; }
+    body.style-xp.light #boot { background: #004e98; }
+    body.style-xp #boot .boot-win { padding: 0 3px 3px; background: #ece9d8; border: 3px solid #0831d9; border-top: 0; border-radius: 8px 8px 0 0; box-shadow: none; }
+    body.style-xp #boot .boot-title { height: 25px; margin: 0 -6px; padding: 0 8px; border-radius: 7px 7px 0 0; font: bold 13px "Trebuchet MS", Tahoma, sans-serif; background: linear-gradient(180deg, #3d95ff 0%, #0a5fee 10%, #0055e5 45%, #0060f8 85%, #0046c8 100%); }
+    body.style-xp #boot .boot-bar { border: 1px solid #7f9db9; border-radius: 3px; }
+    body.style-xp #boot .boot-fill { background: repeating-linear-gradient(90deg, #2fbb3a 0 7px, transparent 7px 9px); }
+    body.style-win31 #boot { background: #000000; }
+    body.style-win31.light #boot { background: #c0c0c0; }
+    body.style-win31 #boot .boot-win { padding: 4px; background: #ffffff; border: 1px solid #000; box-shadow: inset 0 0 0 3px #c0c0c0, inset 0 0 0 4px #000; }
+    body.style-win31 #boot .boot-title { height: 20px; justify-content: center; font-size: 12px; background: #000080; }
+    body.style-win31 #boot .boot-bar { padding: 0; border: 1px solid #000; }
+    body.style-win31 #boot .boot-fill { background: #000080; }
     @keyframes boot-slide { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
   </style>
 </head>
@@ -25,6 +37,8 @@
         var t = localStorage.getItem('theme_preference') || 'auto';
         var light = t === 'light' || (t !== 'dark' && !(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches));
         if (light) document.body.classList.add('light');
+        var style = String(localStorage.getItem('win2000_style') || localStorage.getItem('win2000_style_site') || '').trim().toLowerCase();
+        if (style === 'xp' || style === 'win31') document.body.classList.add('style-' + style);
       } catch (e) {}
     })();
   </script>
