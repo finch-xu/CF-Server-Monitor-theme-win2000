@@ -38,7 +38,25 @@ body {
   --overlay: rgba(0, 0, 0, 0.45);
   --graph-bg: #000000;
   --graph-grid: #008040;
-  --graph-axis: #9fd9a8;
+  --graph-axis: #8fd88f;
+  --graph-tip-bg: #ffffe1;
+  --graph-tip-text: #000000;
+  --graph-tip-border: #000000;
+  --graph-line-1: #00ff00;
+  --graph-line-2: #ffff00;
+  --graph-line-3: #00ffff;
+  --graph-line-4: #ff60ff;
+  --graph-line-5: #ff6060;
+  --graph-line-6: #6fa8ff;
+  --graph-line-7: #ffffff;
+  --graph-line-8: #ffa040;
+
+  --sb-track: repeating-conic-gradient(var(--dither-a) 0 25%, var(--dither-b) 0 50%) 0 0 / 2px 2px;
+  --sb-thumb: var(--face);
+  --sb-button: var(--face);
+  --sb-border: var(--light) var(--dkshadow) var(--dkshadow) var(--light);
+  --sb-shadow: inset 1px 1px var(--hilight), inset -1px -1px var(--shadow);
+  --sb-radius: 0;
 
   --accent-green: #3ccb5a;
   --accent-blue: #6fa8ff;
@@ -87,7 +105,6 @@ body.light {
   --overlay: rgba(0, 0, 0, 0.15);
   --graph-bg: #000000;
   --graph-grid: #008040;
-  --graph-axis: #404040;
 
   --accent-green: #007a00;
   --accent-blue: #0a246a;
@@ -771,14 +788,15 @@ u.ak {
 }
 
 ::-webkit-scrollbar-track {
-  background: repeating-conic-gradient(var(--dither-a) 0 25%, var(--dither-b) 0 50%) 0 0 / 2px 2px;
+  background: var(--sb-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--face);
+  background: var(--sb-thumb);
   border: 1px solid;
-  border-color: var(--light) var(--dkshadow) var(--dkshadow) var(--light);
-  box-shadow: inset 1px 1px var(--hilight), inset -1px -1px var(--shadow);
+  border-color: var(--sb-border);
+  border-radius: var(--sb-radius);
+  box-shadow: var(--sb-shadow);
 }
 
 ::-webkit-scrollbar-corner {
@@ -789,10 +807,11 @@ u.ak {
   display: block;
   width: 16px;
   height: 16px;
-  background-color: var(--face);
+  background-color: var(--sb-button);
   border: 1px solid;
-  border-color: var(--light) var(--dkshadow) var(--dkshadow) var(--light);
-  box-shadow: inset 1px 1px var(--hilight), inset -1px -1px var(--shadow);
+  border-color: var(--sb-border);
+  border-radius: var(--sb-radius);
+  box-shadow: var(--sb-shadow);
   background-repeat: no-repeat;
   background-position: center;
 }

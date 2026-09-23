@@ -1230,7 +1230,9 @@ onMounted(async () => {
     nextTick(initMap)
   }
 
+  // 明暗、风格切换都会改变 body 类名：地图重新取色，选项卡宽度也可能变化
   themeObserver = new MutationObserver(() => {
+    scheduleFilterMeasurement()
     if (currentView.value === 'map') drawMarkers()
   })
   themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] })

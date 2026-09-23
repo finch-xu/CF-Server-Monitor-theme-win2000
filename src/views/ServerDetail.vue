@@ -374,8 +374,21 @@ watch([loading, liveConnected, lastUpdateText, currentLang], () => {
   setWindowStatus(lastUpdateText.value ? `${live} · ${trans.value.lastUpdate}: ${lastUpdateText.value}` : live)
 }, { immediate: true })
 
-// 任务管理器配色：黑底绿网格
-const GRAPH_COLORS = ['#00ff00', '#ffff00', '#00ffff', '#ff60ff', '#ff6060', '#6fa8ff', '#ffffff', '#ffa040']
+// 曲线颜色来自 CSS 变量 --graph-line-1 ~ 8，随风格与明暗变化；读不到时用任务管理器配色兜底
+const DEFAULT_GRAPH_COLORS = ['#00ff00', '#ffff00', '#00ffff', '#ff60ff', '#ff6060', '#6fa8ff', '#ffffff', '#ffa040']
+const GRAPH_LINE_COUNT = DEFAULT_GRAPH_COLORS.length
+const HEX_COLOR = /^#[0-9a-f]{6}$/i
+
+const readCssColor = (name, fallback) => {
+  if (typeof window === 'undefined' || !document.body) return fallback
+  const value = window.getComputedStyle(document.body).getPropertyValue(name).trim()
+  return HEX_COLOR.test(value) ? value : fallback
+}
+
+const readGraphPalette = () => DEFAULT_GRAPH_COLORS.map((fallback, i) => readCssColor(`--graph-line-${i + 1}`, fallback))
+
+let graphPalette = readGraphPalette()
+const graphColor = (index) => graphPalette[index % GRAPH_LINE_COUNT]
 
 const PING_FIELD_DEFS = [
   { field: 'ping_ct', lossField: 'loss_ct', labelKey: 'pingCt', className: 'ping-ct', datasetIndex: 0 },
@@ -796,14 +809,16 @@ const syncChartLabels = (chart) => {
   chart.data.labels = labels
 }
 
-const ds = (label, color, opts = {}) => ({
-  label, data: [], borderColor: color,
-  backgroundColor: opts.fill ? hexToRgba(color, 0.15) : 'transparent',
-  fill: !!opts.fill, tension: opts.tension ?? 0.4, borderWidth: 1.5,
-  pointRadius: 0, hoverRadius: 5, spanGaps: false, ...opts
-})
-
-const GPU_COLORS = GRAPH_COLORS
+// colorIndex 保存在数据集上，风格切换时据此原地换色
+const ds = (label, colorIndex, opts = {}) => {
+  const color = graphColor(colorIndex)
+  return {
+    label, data: [], borderColor: color,
+    backgroundColor: opts.fill ? hexToRgba(color, 0.15) : 'transparent',
+    fill: !!opts.fill, tension: opts.tension ?? 0.4, borderWidth: 1.5,
+    pointRadius: 0, hoverRadius: 5, spanGaps: false, ...opts, colorIndex
+  }
+}
 
 const GPU_DETAIL_CHART_KEYS = ['gpu', 'gpuMem', 'gpuClock', 'gpuPower']
 
@@ -822,23 +837,23 @@ const gpuFieldAccessor = (gpuId, chartKey) => (d) => {
 }
 
 const CHART_DEFS = [
-  { key: 'cpu', ref: () => cpuChartRef.value, datasets: [ds('CPU', GRAPH_COLORS[0], { fill: true })], unit: '%' },
+  { key: 'cpu', ref: () => cpuChartRef.value, datasets: [ds('CPU', 0, { fill: true })], unit: '%' },
   { key: 'gpu', ref: () => gpuChartRef.value, datasets: [], unit: '%', legend: true },
   { key: 'gpuMem', ref: () => gpuMemChartRef.value, datasets: [], legend: true, tickFormat: (v) => formatBytes(v * 1024 * 1024) },
   { key: 'gpuClock', ref: () => gpuClockChartRef.value, datasets: [], unit: ' MHz', legend: true },
   { key: 'gpuPower', ref: () => gpuPowerChartRef.value, datasets: [], unit: ' W', legend: true },
-  { key: 'ram', ref: () => ramChartRef.value, datasets: [ds('Memory', GRAPH_COLORS[1], { fill: true }), ds('Swap', GRAPH_COLORS[2], { fill: true })], unit: '%', legend: true },
-  { key: 'disk', ref: () => diskChartRef.value, datasets: [ds('Disk', GRAPH_COLORS[0], { fill: true })], unit: '%' },
+  { key: 'ram', ref: () => ramChartRef.value, datasets: [ds('Memory', 1, { fill: true }), ds('Swap', 2, { fill: true })], unit: '%', legend: true },
+  { key: 'disk', ref: () => diskChartRef.value, datasets: [ds('Disk', 0, { fill: true })], unit: '%' },
   {
     key: 'diskIo',
     ref: () => diskIoChartRef.value,
     datasets: [
-      ds('Read', GRAPH_COLORS[0], { fill: true, yAxisID: 'y', formatValue: (v) => formatBytes(v) + '/s' }),
-      ds('Write', GRAPH_COLORS[1], { fill: true, yAxisID: 'y', formatValue: (v) => formatBytes(v) + '/s' }),
-      ds('Read IOPS', GRAPH_COLORS[2], { yAxisID: 'y1', borderDash: [5, 4], formatValue: (v) => `${formatDiskIoNumber(v)} ops/s` }),
-      ds('Write IOPS', GRAPH_COLORS[3], { yAxisID: 'y1', borderDash: [5, 4], formatValue: (v) => `${formatDiskIoNumber(v)} ops/s` }),
-      ds('await', GRAPH_COLORS[4], { yAxisID: 'y1', borderDash: [2, 4], formatValue: (v) => `${formatDiskIoNumber(v)} ms` }),
-      ds('util', GRAPH_COLORS[7], { yAxisID: 'y1', borderDash: [8, 4], formatValue: (v) => `${formatDiskIoNumber(v)}%` })
+      ds('Read', 0, { fill: true, yAxisID: 'y', formatValue: (v) => formatBytes(v) + '/s' }),
+      ds('Write', 1, { fill: true, yAxisID: 'y', formatValue: (v) => formatBytes(v) + '/s' }),
+      ds('Read IOPS', 2, { yAxisID: 'y1', borderDash: [5, 4], formatValue: (v) => `${formatDiskIoNumber(v)} ops/s` }),
+      ds('Write IOPS', 3, { yAxisID: 'y1', borderDash: [5, 4], formatValue: (v) => `${formatDiskIoNumber(v)} ops/s` }),
+      ds('await', 4, { yAxisID: 'y1', borderDash: [2, 4], formatValue: (v) => `${formatDiskIoNumber(v)} ms` }),
+      ds('util', 7, { yAxisID: 'y1', borderDash: [8, 4], formatValue: (v) => `${formatDiskIoNumber(v)}%` })
     ],
     legend: true,
     tickFormat: (v) => formatBytes(v),
@@ -856,12 +871,12 @@ const CHART_DEFS = [
       }
     })
   },
-  { key: 'proc', ref: () => procChartRef.value, datasets: [ds('Processes', GRAPH_COLORS[0], { fill: true })] },
-  { key: 'net', ref: () => netChartRef.value, datasets: [ds('Download', GRAPH_COLORS[0], { fill: true }), ds('Upload', GRAPH_COLORS[1], { fill: true })], legend: true, formatValue: (v) => formatBytes(v) + '/s', tickFormat: (v) => formatBytes(v) },
-  { key: 'conn', ref: () => connChartRef.value, datasets: [ds('TCP', GRAPH_COLORS[0]), ds('UDP', GRAPH_COLORS[1])], legend: true },
-  { key: 'ping', ref: () => pingChartRef.value, datasets: ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4'].map((key, i) => ds(pingLabel(key), GRAPH_COLORS[i], { tension: 0.3 })), unit: ' ms', legend: true },
-  { key: 'loss', ref: () => lossChartRef.value, datasets: ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4'].map((key, i) => ds(pingLabel(key), GRAPH_COLORS[i], { tension: 0.3 })), unit: '%', legend: true },
-  { key: 'load', ref: () => loadChartRef.value, datasets: [ds(trans.value.load1m || '1 Min', GRAPH_COLORS[0], { tension: 0.3 }), ds(trans.value.load5m || '5 Min', GRAPH_COLORS[1], { tension: 0.3 }), ds(trans.value.load15m || '15 Min', GRAPH_COLORS[2], { tension: 0.3 })], legend: true }
+  { key: 'proc', ref: () => procChartRef.value, datasets: [ds('Processes', 0, { fill: true })] },
+  { key: 'net', ref: () => netChartRef.value, datasets: [ds('Download', 0, { fill: true }), ds('Upload', 1, { fill: true })], legend: true, formatValue: (v) => formatBytes(v) + '/s', tickFormat: (v) => formatBytes(v) },
+  { key: 'conn', ref: () => connChartRef.value, datasets: [ds('TCP', 0), ds('UDP', 1)], legend: true },
+  { key: 'ping', ref: () => pingChartRef.value, datasets: ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4'].map((key, i) => ds(pingLabel(key), i, { tension: 0.3 })), unit: ' ms', legend: true },
+  { key: 'loss', ref: () => lossChartRef.value, datasets: ['ct', 'cu', 'cm', 'bd', 'node_1', 'node_2', 'node_3', 'node_4'].map((key, i) => ds(pingLabel(key), i, { tension: 0.3 })), unit: '%', legend: true },
+  { key: 'load', ref: () => loadChartRef.value, datasets: [ds(trans.value.load1m || '1 Min', 0, { tension: 0.3 }), ds(trans.value.load5m || '5 Min', 1, { tension: 0.3 }), ds(trans.value.load15m || '15 Min', 2, { tension: 0.3 })], legend: true }
 ]
 
 const syncProbeChartVisibility = () => {
@@ -906,12 +921,12 @@ const rebuildGpuChartDatasets = () => {
       const opts = chartKey === 'gpuMem'
         ? { fill: true, formatValue: (v) => formatBytes(v * 1024 * 1024) }
         : { fill: true }
-      const dataset = ds(g.name || `GPU ${i}`, GPU_COLORS[i % GPU_COLORS.length], opts)
+      const dataset = ds(g.name || `GPU ${i}`, i, opts)
       dataset.gpuId = String(g.id ?? i)
       return dataset
     })
     if (newDatasets.length === 0) {
-      newDatasets.push(ds('GPU', GRAPH_COLORS[0], { fill: true }))
+      newDatasets.push(ds('GPU', 0, { fill: true }))
     }
     chart.data.datasets = newDatasets
     chart.update('none')
@@ -920,27 +935,67 @@ const rebuildGpuChartDatasets = () => {
 
 const CHART_FONT = "Tahoma, 'SimSun', 'Microsoft YaHei', sans-serif"
 
-const getChartThemeColors = () => ({
-  axis: '#8fd88f',
-  grid: '#008040',
-  tooltipBg: '#ffffe1',
-  tooltipTitle: '#000000',
-  tooltipBody: '#000000',
-  tooltipBorder: '#000000'
-})
+const getChartThemeColors = () => {
+  const tipText = readCssColor('--graph-tip-text', '#000000')
+  return {
+    axis: readCssColor('--graph-axis', '#8fd88f'),
+    grid: readCssColor('--graph-grid', '#008040'),
+    tooltipBg: readCssColor('--graph-tip-bg', '#ffffe1'),
+    tooltipTitle: tipText,
+    tooltipBody: tipText,
+    tooltipBorder: readCssColor('--graph-tip-border', '#000000')
+  }
+}
 
-const initCharts = () => {
-  safeDestroyCharts()
-
-  const chartTheme = getChartThemeColors()
-
-  Chart.defaults.font.family = CHART_FONT
-  Chart.defaults.font.size = 10
+const applyChartDefaults = (chartTheme) => {
   Chart.defaults.color = chartTheme.axis
   Chart.defaults.plugins.tooltip.backgroundColor = chartTheme.tooltipBg
   Chart.defaults.plugins.tooltip.titleColor = chartTheme.tooltipTitle
   Chart.defaults.plugins.tooltip.bodyColor = chartTheme.tooltipBody
   Chart.defaults.plugins.tooltip.borderColor = chartTheme.tooltipBorder
+}
+
+// 风格或明暗变化时原地换色：不能销毁重建，否则已加载的历史数据会丢失
+const applyChartTheme = () => {
+  graphPalette = readGraphPalette()
+  const chartTheme = getChartThemeColors()
+  applyChartDefaults(chartTheme)
+
+  for (const chart of Object.values(charts)) {
+    if (!chart) continue
+    for (const dataset of chart.data.datasets || []) {
+      if (!Number.isInteger(dataset.colorIndex)) continue
+      const color = graphColor(dataset.colorIndex)
+      dataset.borderColor = color
+      dataset.backgroundColor = dataset.fill ? hexToRgba(color, 0.15) : 'transparent'
+    }
+    for (const scale of Object.values(chart.options.scales || {})) {
+      if (scale.grid) scale.grid.color = chartTheme.grid
+      if (scale.ticks) scale.ticks.color = chartTheme.axis
+      if (scale.title) scale.title.color = chartTheme.axis
+    }
+    const legendLabels = chart.options.plugins?.legend?.labels
+    if (legendLabels) legendLabels.color = chartTheme.axis
+    const tooltip = chart.options.plugins?.tooltip
+    if (tooltip) {
+      tooltip.backgroundColor = chartTheme.tooltipBg
+      tooltip.titleColor = chartTheme.tooltipTitle
+      tooltip.bodyColor = chartTheme.tooltipBody
+      tooltip.borderColor = chartTheme.tooltipBorder
+    }
+    chart.update('none')
+  }
+}
+
+const initCharts = () => {
+  safeDestroyCharts()
+
+  graphPalette = readGraphPalette()
+  const chartTheme = getChartThemeColors()
+
+  Chart.defaults.font.family = CHART_FONT
+  Chart.defaults.font.size = 10
+  applyChartDefaults(chartTheme)
   Chart.defaults.plugins.tooltip.borderWidth = 1
   Chart.defaults.plugins.tooltip.titleFont = { size: 11, weight: 'bold', family: CHART_FONT }
   Chart.defaults.plugins.tooltip.bodyFont = { size: 11, family: CHART_FONT }
@@ -1064,6 +1119,7 @@ const initCharts = () => {
 
   rebuildGpuChartDatasets()
   syncProbeChartVisibility()
+  applyChartTheme()
 }
 
 // ≤1h: gap超过5分钟断线; >1h: 按 long_history_points 计算采样间隔，允许点落在桶内不同位置造成的正常漂移
@@ -1761,11 +1817,16 @@ watch([cpuChartRef, gpuChartRef, gpuMemChartRef, gpuClockChartRef, gpuPowerChart
   }
 })
 
+let chartThemeObserver = null
+
 onMounted(() => {
   init()
+  chartThemeObserver = new MutationObserver(applyChartTheme)
+  chartThemeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] })
 })
 
 onUnmounted(() => {
+  if (chartThemeObserver) chartThemeObserver.disconnect()
   document.removeEventListener('visibilitychange', handleVisibility)
   if (liveSocket) liveSocket.close()
   clearLatestReportReplayTimers()
