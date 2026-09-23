@@ -25,6 +25,14 @@ body.style-xp {
   --dither-a: #3a3a3a;
   --dither-b: #2d2d2d;
 
+  /* 状态色（延迟小方格、网速、使用率等）：Luna 的绿、蓝、橙 */
+  --accent-green: #3fcf4c;
+  --accent-blue: #6a9cf0;
+  --accent-yellow: #ffb03a;
+  --accent-red: #ff5a4a;
+  --accent-cyan: #4fc8e0;
+  --accent-purple: #b48cf0;
+
   --xp-frame: #0831d9;
   --xp-frame-off: #5a6fa8;
   --xp-title: linear-gradient(180deg, #3d95ff 0%, #0a5fee 10%, #0055e5 45%, #0060f8 85%, #0046c8 100%);
@@ -69,13 +77,20 @@ body.style-xp.light {
   --dither-a: #ffffff;
   --dither-b: #ece9d8;
 
+  --accent-green: #1f9a2a;
+  --accent-blue: #2156c2;
+  --accent-yellow: #d97a10;
+  --accent-red: #c42b1c;
+  --accent-cyan: #0a7fa0;
+  --accent-purple: #6a3aa8;
+
   --xp-frame-off: #7a96df;
   --xp-title-off: linear-gradient(180deg, #a8bdf2 0%, #8aa3e6 12%, #7b97e0 50%, #86a0e6 88%, #7a96df 100%);
   --xp-control-border: #003c74;
   --xp-field-border: #7f9db9;
   --xp-btn: linear-gradient(180deg, #ffffff 0%, #ecebe6 86%, #d6d0c5 100%);
   --xp-btn-pressed: linear-gradient(180deg, #cdcac3 0%, #e3e3db 8%, #e5e5de 94%, #f2f2f1 100%);
-  --xp-default: #7da2ce;
+  --xp-default: #2f64c8;
   --xp-tab: linear-gradient(180deg, #ffffff 0%, #f3f3ef 60%, #ecebe5 100%);
   --xp-tab-border: #919b9c;
   --xp-group-border: #d0d0bf;

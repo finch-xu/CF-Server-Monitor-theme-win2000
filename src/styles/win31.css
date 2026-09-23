@@ -30,6 +30,14 @@ body.style-win31 {
   --row-line: #2a2a2a;
   --link: #8ab4ff;
 
+  /* 状态色（延迟小方格、网速、使用率等）：16 色调色板里的亮色 */
+  --accent-green: #00ff00;
+  --accent-blue: #5f9fff;
+  --accent-yellow: #ffff00;
+  --accent-red: #ff5555;
+  --accent-cyan: #00ffff;
+  --accent-purple: #ff55ff;
+
   --w31-line: #9a9a9a;
   --w31-frame: #3a3a3a;
   --w31-btn: #3a3a3a;
@@ -86,6 +94,14 @@ body.style-win31.light {
   --bar-hot: #c00000;
   --row-line: #e0e0e0;
   --link: #0000ff;
+
+  /* 16 色调色板里的暗色，白底上对比更清楚 */
+  --accent-green: #008000;
+  --accent-blue: #000080;
+  --accent-yellow: #808000;
+  --accent-red: #c00000;
+  --accent-cyan: #008080;
+  --accent-purple: #800080;
 
   --w31-line: #000000;
   --w31-frame: #c0c0c0;
