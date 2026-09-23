@@ -60,7 +60,8 @@ const THEME_TEXTS = {
     w2kStyleDefault: 'Site default ({name})',
     w2kStyleWin2000: 'Windows 2000',
     w2kStyleXp: 'Windows XP',
-    w2kStyleWin31: 'Windows 3.1'
+    w2kStyleWin31: 'Windows 3.1',
+    w2kStyleOsx: 'Mac OS X 10.6'
   },
   zh: {
     w2kLanguage: '语言',
@@ -120,7 +121,8 @@ const THEME_TEXTS = {
     w2kStyleDefault: '站点默认（{name}）',
     w2kStyleWin2000: 'Windows 2000',
     w2kStyleXp: 'Windows XP',
-    w2kStyleWin31: 'Windows 3.1'
+    w2kStyleWin31: 'Windows 3.1',
+    w2kStyleOsx: 'Mac OS X 10.6'
   }
 }
 

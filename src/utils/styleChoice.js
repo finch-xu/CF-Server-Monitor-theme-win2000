@@ -1,7 +1,7 @@
-// 主题内置风格：body 类名与 win2000.css / xp.css / win31.css 对应，Win2000 为默认、不加类名
-export const STYLES = ['win2000', 'xp', 'win31']
+// 主题内置风格：body 类名与 win2000.css / xp.css / win31.css / osx.css 对应，Win2000 为默认、不加类名
+export const STYLES = ['win2000', 'xp', 'win31', 'osx']
 export const DEFAULT_STYLE = 'win2000'
-export const STYLE_CLASSES = { win2000: '', xp: 'style-xp', win31: 'style-win31' }
+export const STYLE_CLASSES = { win2000: '', xp: 'style-xp', win31: 'style-win31', osx: 'style-osx' }
 
 const toKey = (value) => (typeof value === 'string' ? value.trim().toLowerCase() : '')
 

@@ -48,7 +48,7 @@ const rootRef = ref(null)
 const buttonRef = ref(null)
 const itemEls = []
 
-const STYLE_NAME_KEYS = { win2000: 'w2kStyleWin2000', xp: 'w2kStyleXp', win31: 'w2kStyleWin31' }
+const STYLE_NAME_KEYS = { win2000: 'w2kStyleWin2000', xp: 'w2kStyleXp', win31: 'w2kStyleWin31', osx: 'w2kStyleOsx' }
 const styleName = (style) => trans.value[STYLE_NAME_KEYS[style]] || style
 
 const items = computed(() => [

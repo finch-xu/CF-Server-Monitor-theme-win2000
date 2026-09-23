@@ -45,3 +45,12 @@ test('每种风格都有对应的 body 类名，只有 win2000 为空', () => {
   assert.equal(STYLE_CLASSES.xp, 'style-xp')
   assert.equal(STYLE_CLASSES.win31, 'style-win31')
 })
+
+test('osx 风格：识别、类名映射与站点默认', () => {
+  assert.ok(STYLES.includes('osx'))
+  assert.equal(normalizeStyle(' OSX '), 'osx')
+  assert.equal(normalizeStyleChoice('osx'), 'osx')
+  assert.equal(STYLE_CLASSES.osx, 'style-osx')
+  assert.equal(resolveStyle('default', 'osx'), 'osx')
+  assert.equal(resolveStyle('xp', 'osx'), 'xp')
+})
