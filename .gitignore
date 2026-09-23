@@ -149,3 +149,9 @@ Thumbs.db
 .vscode/
 *.local
 *.pem
+
+.claude/
+CLAUDE.md
+
+docs/
+!docs/preview.png

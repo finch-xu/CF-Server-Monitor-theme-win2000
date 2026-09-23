@@ -78,9 +78,6 @@ npm run build:github-page
 
 每个后端 Worker 都要在 `CORS_ALLOWED_ORIGINS` 中加入主题所在的域名。
 
-## 设计说明
-
-见 [docs/DESIGN.md](docs/DESIGN.md)。
 
 ## 致谢与许可
 
