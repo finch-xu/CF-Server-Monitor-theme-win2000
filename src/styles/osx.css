@@ -390,3 +390,290 @@ body.style-osx .tool-sep {
   border-left: 1px solid var(--shadow);
   border-right: 0;
 }
+
+/* ---------- 地区选项卡：Finder 搜索栏的范围按钮 ----------
+ * 药丸之间的间隔用透明边框做（计入 offsetWidth），不能用外边距或 gap：
+ * 首页用 offsetWidth 计算哪些选项卡要收进「更多」。
+ */
+
+body.style-osx .tabs {
+  padding-left: 0;
+}
+
+body.style-osx .tab,
+body.style-osx .tab.active {
+  height: 20px;
+  margin: 0 0 6px;
+  padding: 0 9px;
+  color: var(--text);
+  background: transparent;
+  background-clip: padding-box;
+  border: 0 solid transparent;
+  border-width: 0 3px;
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+body.style-osx .tab:hover {
+  background-color: var(--osx-scope-hover);
+}
+
+body.style-osx .tab.active {
+  color: var(--osx-scope-active-text);
+  background-color: var(--osx-scope-active);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+body.style-osx .tab.active .tab-count {
+  color: inherit;
+  opacity: 0.85;
+}
+
+body.style-osx .tab-panel {
+  border: 0;
+  border-top: 1px solid var(--osx-group-line);
+  box-shadow: none;
+}
+
+/* ---------- 分组框：标题在框的上方 ----------
+ * fieldset 有边框时 legend 会压在边线上，所以去掉 fieldset 的边框，框改由 ::before 绘制。
+ * 这样统计框（.stat-box，overflow: hidden）里的标题也不会被裁掉。
+ */
+
+body.style-osx .groupbox {
+  position: relative;
+  isolation: isolate;
+  padding: 6px 10px 10px;
+  border: 0;
+  box-shadow: none;
+}
+
+body.style-osx .groupbox::before {
+  content: "";
+  position: absolute;
+  inset: 20px 0 0;
+  z-index: -1;
+  border: 1px solid var(--osx-group-line);
+  border-radius: 5px;
+  background: var(--osx-group-fill);
+}
+
+body.style-osx .groupbox > legend {
+  margin: 0 0 0 -10px;
+  padding: 0 0 10px;
+  background: none;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 14px;
+}
+
+/* ---------- 进度条：蓝色玻璃质感 ---------- */
+
+body.style-osx .progress {
+  padding: 0;
+  border: 1px solid var(--osx-btn-border);
+  border-radius: 7px;
+  background: var(--osx-track);
+  overflow: hidden;
+}
+
+body.style-osx .progress-fill {
+  border-radius: 6px;
+  background: var(--osx-fill);
+}
+
+body.style-osx .progress-fill.hot {
+  background: var(--osx-fill-hot);
+}
+
+body.style-osx .progress-fill.unlimited {
+  background: var(--osx-fill-off);
+}
+
+/* ---------- 列表：蓝白相间的行 ---------- */
+
+body.style-osx .listview .col-head {
+  height: 19px;
+  color: var(--text);
+  background: var(--osx-head);
+  border: 0;
+  border-right: 1px solid var(--osx-head-line);
+  border-bottom: 1px solid var(--osx-head-line);
+  box-shadow: none;
+  font-size: 11px;
+}
+
+body.style-osx .listview td {
+  border-bottom: 0;
+}
+
+body.style-osx .listview tbody tr:nth-child(even) {
+  background: var(--osx-stripe);
+}
+
+/* 放在隔行底色之后：同优先级，靠源码顺序胜出 */
+body.style-osx .listview tbody tr:hover,
+body.style-osx .listview tbody tr:focus-visible {
+  background: var(--select-bg);
+  color: var(--select-text);
+}
+
+/* ---------- 状态栏：底部渐变条 ---------- */
+
+body.style-osx .status-bar {
+  gap: 0;
+  min-height: 22px;
+  padding: 0 6px;
+  color: var(--text);
+  background: var(--osx-status);
+  border-top: 1px solid var(--osx-title-line);
+  border-radius: 0 0 4px 4px;
+}
+
+body.style-osx .status-field {
+  border: 0;
+}
+
+/* ---------- 凹凸区域、下拉框、徽章 ---------- */
+
+body.style-osx .sunken,
+body.style-osx .thin-sunken {
+  border: 1px solid var(--osx-btn-border);
+  border-radius: 3px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+body.style-osx .raised,
+body.style-osx .thin-raised {
+  background: var(--osx-btn);
+  border: 1px solid var(--osx-btn-border);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+body.style-osx .select {
+  color: var(--osx-btn-text);
+  background: var(--osx-btn);
+  border: 1px solid var(--osx-btn-border);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+body.style-osx .badge {
+  color: var(--osx-btn-text);
+  background: var(--osx-btn);
+  border: 1px solid var(--osx-btn-border);
+  border-radius: 8px;
+  padding: 0 5px;
+}
+
+/* ---------- 提示框：浅黄底、灰色细边、小圆角 ---------- */
+
+body.style-osx [data-tooltip]:hover::after,
+body.style-osx .tooltip-anchor .tooltip-box {
+  border-color: #9a9a9a;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- 服务器卡片：小号 Mac 窗口 ---------- */
+
+body.style-osx .server-card {
+  padding: 0 0 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+body.style-osx .card-status {
+  height: 16px;
+  color: var(--osx-btn-text);
+  background: var(--osx-btn);
+  border: 1px solid var(--osx-btn-border);
+  border-radius: 8px;
+  text-shadow: none;
+}
+
+/* ---------- 对话框：sheet，从窗口顶部落下 ---------- */
+
+body.style-osx .dialog-overlay {
+  align-items: flex-start;
+  padding: 0 16px 16px;
+}
+
+/* 放在 .win 之后：同优先级，靠源码顺序覆盖阴影和圆角 */
+body.style-osx .dialog {
+  border-top: 0;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  animation: osx-sheet-in 0.25s ease-out;
+}
+
+@keyframes osx-sheet-in {
+  from { transform: translateY(-100%); }
+  to { transform: none; }
+}
+
+/* sheet 没有窗口标题栏：只保留粗体标题和关闭按钮 */
+body.style-osx .dialog > .title-bar {
+  height: 28px;
+  padding: 0 8px 0 14px;
+  color: var(--text);
+  background: transparent;
+  border-bottom: 0;
+  border-radius: 0;
+  font-weight: bold;
+  text-shadow: none;
+}
+
+body.style-osx .dialog > .title-bar::before {
+  content: none;
+}
+
+body.style-osx .dialog-buttons {
+  justify-content: flex-end;
+  padding: 6px 14px 14px;
+}
+
+/* ---------- 弹出菜单 ---------- */
+
+body.style-osx .filter-menu,
+body.style-osx .popup-menu {
+  padding: 4px 0;
+  color: var(--text);
+  background: var(--osx-menu);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+body.style-osx .popup-menu-item:hover,
+body.style-osx .popup-menu-item:focus-visible,
+body.style-osx .filter-menu-item:hover,
+body.style-osx .filter-menu-item.active,
+body.style-osx .filter-menu-item:focus-visible {
+  color: #ffffff;
+  background: var(--osx-menu-hl);
+}
+
+body.style-osx .popup-menu-sep {
+  margin: 4px 0;
+  border-top-color: var(--osx-group-line);
+  border-bottom: 0;
+}
+
+/* ---------- 手机：主窗口铺满屏幕，去掉圆角和阴影 ---------- */
+
+@media (max-width: 768px) {
+  body.style-osx .app-window {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  body.style-osx .app-window > .title-bar,
+  body.style-osx .status-bar {
+    border-radius: 0;
+  }
+}
