@@ -943,7 +943,8 @@ const getChartThemeColors = () => {
     tooltipBg: readCssColor('--graph-tip-bg', '#ffffe1'),
     tooltipTitle: tipText,
     tooltipBody: tipText,
-    tooltipBorder: readCssColor('--graph-tip-border', '#000000')
+    tooltipBorder: readCssColor('--graph-tip-border', '#000000'),
+    pointHover: readCssColor('--graph-point-hover', '#ffffff')
   }
 }
 
@@ -983,6 +984,8 @@ const applyChartTheme = () => {
       tooltip.bodyColor = chartTheme.tooltipBody
       tooltip.borderColor = chartTheme.tooltipBorder
     }
+    const point = chart.options.elements?.point
+    if (point) point.hoverBorderColor = chartTheme.pointHover
     chart.update('none')
   }
 }
@@ -1101,7 +1104,7 @@ const initCharts = () => {
         ...resolvedExtraScales
       },
       elements: {
-        point: { radius: 0, hoverRadius: 5, hitRadius: 10, borderWidth: 0, hoverBorderWidth: 2, hoverBorderColor: '#ffffff' },
+        point: { radius: 0, hoverRadius: 5, hitRadius: 10, borderWidth: 0, hoverBorderWidth: 2, hoverBorderColor: chartTheme.pointHover },
         line: { tension: 0.4, borderWidth: 1.5, fill: false, spanGaps: false }
       }
     }

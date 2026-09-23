@@ -552,6 +552,7 @@
   height: 520px;
   background: var(--window);
   font-family: inherit;
+  isolation: isolate;
 }
 
 .map-container.leaflet-container {

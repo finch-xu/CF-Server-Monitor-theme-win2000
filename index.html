@@ -37,7 +37,8 @@
         var t = localStorage.getItem('theme_preference') || 'auto';
         var light = t === 'light' || (t !== 'dark' && !(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches));
         if (light) document.body.classList.add('light');
-        var style = String(localStorage.getItem('win2000_style') || localStorage.getItem('win2000_style_site') || '').trim().toLowerCase();
+        var visitor = String(localStorage.getItem('win2000_style') || '').trim().toLowerCase();
+        var style = (visitor === 'win2000' || visitor === 'xp' || visitor === 'win31') ? visitor : String(localStorage.getItem('win2000_style_site') || '').trim().toLowerCase();
         if (style === 'xp' || style === 'win31') document.body.classList.add('style-' + style);
       } catch (e) {}
     })();

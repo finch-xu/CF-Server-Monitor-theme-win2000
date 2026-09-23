@@ -100,6 +100,7 @@ body.style-win31.light {
   --graph-tip-bg: #ffffff;
   --graph-tip-text: #000000;
   --graph-tip-border: #000000;
+  --graph-point-hover: #000000;
   --graph-line-1: #0000ff;
   --graph-line-2: #ff0000;
   --graph-line-3: #008000;

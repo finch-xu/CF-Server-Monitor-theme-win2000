@@ -36,12 +36,14 @@ body {
   --dither-a: #4a4a4a;
   --dither-b: #3c3c3c;
   --overlay: rgba(0, 0, 0, 0.45);
+  /* --graph-* 全部必须是 6 位十六进制 #rrggbb，readCssColor 认不出其他写法会兜底 */
   --graph-bg: #000000;
   --graph-grid: #008040;
   --graph-axis: #8fd88f;
   --graph-tip-bg: #ffffe1;
   --graph-tip-text: #000000;
   --graph-tip-border: #000000;
+  --graph-point-hover: #ffffff;
   --graph-line-1: #00ff00;
   --graph-line-2: #ffff00;
   --graph-line-3: #00ffff;
