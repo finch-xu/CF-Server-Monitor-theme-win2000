@@ -102,7 +102,7 @@
 - **Leaflet**：地图视图，与默认主题相同，改成经典配色；依赖通过 npm 打包，不从默认皮肤的 `/files/` 读取。
 - **样式**：手写 CSS，颜色全部用 CSS 变量，深浅两套变量切换；不引入 UI 库。
 - **数据层**：按官方文档实现，包括：`/api/config`、`/api/servers`、`/api/server`、`/api/history/all`、WebSocket 订阅、多 `apiBase`、Turnstile、JWT、页面隐藏时断开 WS、超时询问、延迟值 `false` / `null` / `0` 的区别、`sysConfig` 各显示开关。参考默认主题中 MIT 许可的代码，保留版权声明。
-- **构建**：`npm run build` 输出 `dist/index.html` + `dist/assets/`；GitHub Actions 把产物推到 `build` 分支供主题商店使用；另外提供 `npm run build:github-page` 用于纯静态部署。
+- **构建**：`npm run build` 输出 `dist/index.html` + `dist/assets/`；发布 Release 时由 GitHub Actions 把产物作为新 commit 追加到 `build` 分支（保留历史）并打上 `dist-<版本>` 标签，供主题商店按版本选择；另外提供 `npm run build:github-page` 用于纯静态部署。
 
 ## 6. 开发步骤
 

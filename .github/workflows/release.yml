@@ -1,0 +1,68 @@
+name: Release theme
+
+# 在 GitHub 网页上发布 Release 时运行：构建该版本，追加到 build 分支并打上 dist-<版本> 标签。
+# 也可以手动运行，用来重新发布某个已有的 Release。
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 要重新发布的 Release 标签，例如 v1.0.0
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-build
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RELEASE_TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name || inputs.tag }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Read release title
+        run: |
+          title=$(gh release view "$RELEASE_TAG" --json name --jq .name)
+          {
+            echo "RELEASE_TITLE<<__RELEASE_TITLE__"
+            printf '%s\n' "$title"
+            echo "__RELEASE_TITLE__"
+          } >>"$GITHUB_ENV"
+
+      - name: Publish to build branch
+        id: publish
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          SOURCE_SHA=$(git rev-parse HEAD) bash scripts/publish-build.sh
+
+      - name: Attach build zip and theme URLs to the release
+        env:
+          BUILD_SHA: ${{ steps.publish.outputs.build_sha }}
+          DIST_TAG: ${{ steps.publish.outputs.dist_tag }}
+        run: |
+          archive="theme-${RELEASE_TAG}.zip"
+          (cd dist && zip -qr "../${archive}" .)
+          gh release upload "$RELEASE_TAG" "$archive" --clobber
+
+          gh release view "$RELEASE_TAG" --json body --jq .body >body.md
+          node scripts/release-notes.js body.md >notes.md
+          gh release edit "$RELEASE_TAG" --notes-file notes.md

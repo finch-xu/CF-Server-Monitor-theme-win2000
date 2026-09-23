@@ -18,13 +18,15 @@
 
 ## 安装
 
-在 CF-Server-Monitor 后台的主题设置中，填入本仓库 `build` 分支的地址，例如：
+在 CF-Server-Monitor 后台的主题设置中填入主题地址。有三种写法：
 
-```
-https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/tree/build
-```
+| 用途 | 地址 |
+| --- | --- |
+| 始终使用最新发布版 | `https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/tree/build` |
+| 固定某个版本 | `https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/tree/dist-v1.0.0` |
+| 固定某个 commit | `https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/tree/<build 分支上的 commit id>` |
 
-建议使用某次构建的 commit id 固定版本。
+每个 [Release](https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/releases) 的说明末尾都列出了该版本对应的地址。也可以在后台的主题商店里直接选择版本，效果与固定 commit 相同。
 
 ## 开发
 
@@ -42,7 +44,18 @@ npm run dev
 npm run build
 ```
 
-产物位于 `dist/`，只包含 `index.html` 和 `assets/`。推送到 `main` 后，GitHub Actions 会自动构建并发布到 `build` 分支。
+产物位于 `dist/`，只包含 `index.html` 和 `assets/`。推送到 `main` 只会检查能否构建成功，不会影响用户正在使用的主题。
+
+### 发布新版本
+
+1. 开发完成后推送到 `main`。
+2. 在 GitHub 上进入 Releases → Draft a new release，新建标签（例如 `v1.1.0`），填写标题和更新说明后发布。
+3. 大约一分钟后，GitHub Actions 会完成以下操作：
+   - 构建该版本，在 `build` 分支上追加一个 commit，commit 标题为 `v1.1.0 <Release 标题>`（主题商店会把它显示为版本名）；
+   - 给这个 commit 打上 `dist-v1.1.0` 标签；
+   - 把构建产物 `theme-v1.1.0.zip` 附到 Release 上，并在 Release 说明末尾追加主题地址。
+
+`build` 分支会保留每个版本的历史，不会被覆盖。如果某次发布失败，可以在 Actions 里手动运行 **Release theme**，填入标签重新发布。标签只能包含字母、数字、`.`、`_`、`-`。
 
 ### 纯静态部署（GitHub Pages 等）
 
