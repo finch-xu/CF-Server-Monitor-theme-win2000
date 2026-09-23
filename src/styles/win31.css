@@ -3,3 +3,395 @@
  * 深色（参考 Black Leather Jacket 配色）为默认，body.style-win31.light 为 Windows Default 配色。
  * 只覆盖 win2000.css 中的变量与控件外形。
  */
+
+body.style-win31 {
+  --desktop: #000000;
+  --face: #1a1a1a;
+  --hilight: #6a6a6a;
+  --light: #4a4a4a;
+  --shadow: #2a2a2a;
+  --dkshadow: #000000;
+  --window: #1a1a1a;
+  --window-alt: #222222;
+  --text: #e8e8e8;
+  --text-muted: #b0b0b0;
+  --gray-text: #808080;
+  --gray-text-shadow: transparent;
+  --title-a: #404040;
+  --title-b: #404040;
+  --title-text: #ffffff;
+  --title-off-a: #1a1a1a;
+  --title-off-b: #1a1a1a;
+  --title-off-text: #a0a0a0;
+  --select-bg: #505050;
+  --select-text: #ffffff;
+  --bar: #6f8fcf;
+  --bar-hot: #ff5050;
+  --row-line: #2a2a2a;
+  --link: #8ab4ff;
+
+  --w31-line: #9a9a9a;
+  --w31-frame: #3a3a3a;
+  --w31-btn: #3a3a3a;
+  --w31-btn-hi: #6a6a6a;
+  --w31-btn-lo: #1a1a1a;
+  --w31-btn-text: #e8e8e8;
+  --w31-bevel: inset 2px 2px var(--w31-btn-hi), inset -2px -2px var(--w31-btn-lo);
+  --w31-pressed: inset 1px 1px var(--w31-btn-lo);
+
+  --graph-bg: #000000;
+  --graph-grid: #404040;
+  --graph-axis: #c0c0c0;
+  --graph-tip-bg: #1a1a1a;
+  --graph-tip-text: #ffffff;
+  --graph-tip-border: #9a9a9a;
+  --graph-line-1: #00ffff;
+  --graph-line-2: #ffff00;
+  --graph-line-3: #00ff00;
+  --graph-line-4: #ff00ff;
+  --graph-line-5: #ff0000;
+  --graph-line-6: #8080ff;
+  --graph-line-7: #ffffff;
+  --graph-line-8: #c0c0c0;
+
+  --sb-track: #2a2a2a;
+  --sb-thumb: var(--w31-btn);
+  --sb-button: var(--w31-btn);
+  --sb-border: var(--w31-line);
+  --sb-shadow: inset 1px 1px var(--w31-btn-hi), inset -1px -1px var(--w31-btn-lo);
+  --sb-radius: 0;
+
+  font-family: "MS Sans Serif", Arial, "SimSun", "宋体", "Microsoft YaHei", "PingFang SC", sans-serif;
+}
+
+body.style-win31.light {
+  --desktop: #c0c0c0;
+  --face: #ffffff;
+  --hilight: #ffffff;
+  --light: #c0c0c0;
+  --shadow: #808080;
+  --dkshadow: #000000;
+  --window: #ffffff;
+  --window-alt: #f4f4f4;
+  --text: #000000;
+  --text-muted: #404040;
+  --gray-text: #808080;
+  --title-a: #000080;
+  --title-b: #000080;
+  --title-off-a: #ffffff;
+  --title-off-b: #ffffff;
+  --title-off-text: #000000;
+  --select-bg: #000080;
+  --bar: #000080;
+  --bar-hot: #c00000;
+  --row-line: #e0e0e0;
+  --link: #0000ff;
+
+  --w31-line: #000000;
+  --w31-frame: #c0c0c0;
+  --w31-btn: #c0c0c0;
+  --w31-btn-hi: #ffffff;
+  --w31-btn-lo: #808080;
+  --w31-btn-text: #000000;
+
+  --graph-bg: #ffffff;
+  --graph-grid: #c0c0c0;
+  --graph-axis: #000000;
+  --graph-tip-bg: #ffffff;
+  --graph-tip-text: #000000;
+  --graph-tip-border: #000000;
+  --graph-line-1: #0000ff;
+  --graph-line-2: #ff0000;
+  --graph-line-3: #008000;
+  --graph-line-4: #ff00ff;
+  --graph-line-5: #008080;
+  --graph-line-6: #800080;
+  --graph-line-7: #808000;
+  --graph-line-8: #000080;
+
+  --sb-track: #c0c0c0;
+}
+
+/* ---------- 窗口与标题栏 ---------- */
+
+/* 外黑线 + 3px 灰色窗框 + 内黑线 */
+body.style-win31 .win {
+  padding: 4px;
+  background: var(--face);
+  border: 1px solid var(--w31-line);
+  box-shadow: inset 0 0 0 3px var(--w31-frame), inset 0 0 0 4px var(--w31-line);
+}
+
+body.style-win31 .server-card {
+  padding-bottom: 8px;
+}
+
+body.style-win31 .title-bar {
+  height: 20px;
+  padding: 0;
+  gap: 0;
+  background: var(--title-a);
+  border-bottom: 1px solid var(--w31-line);
+  font-size: 12px;
+}
+
+body.style-win31 .title-bar.inactive {
+  background: var(--title-off-a);
+  color: var(--title-off-text);
+}
+
+/* 左侧的控制菜单方块：灰底，中间一条带阴影的白色横杠 */
+body.style-win31 .title-bar::before {
+  content: "";
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 20px;
+  border-right: 1px solid var(--w31-line);
+  background:
+    linear-gradient(var(--w31-btn-hi), var(--w31-btn-hi)) center / 11px 3px no-repeat,
+    linear-gradient(var(--w31-line), var(--w31-line)) calc(50% + 1px) calc(50% + 1px) / 11px 3px no-repeat,
+    var(--w31-btn);
+}
+
+body.style-win31 .title-bar-icon {
+  display: none;
+}
+
+body.style-win31 .title-bar-text {
+  padding: 0 4px;
+  text-align: center;
+}
+
+body.style-win31 .app-window h1.title-bar-text {
+  font-size: 12px;
+}
+
+body.style-win31 .title-bar .menu-anchor {
+  align-self: stretch;
+}
+
+body.style-win31 .title-btn {
+  height: auto;
+  align-self: stretch;
+  min-width: 20px;
+  padding: 0 4px;
+  color: var(--w31-btn-text);
+  background: var(--w31-btn);
+  border: 0;
+  border-left: 1px solid var(--w31-line);
+  box-shadow: var(--w31-bevel);
+}
+
+body.style-win31 .title-btn:hover {
+  color: var(--w31-btn-text);
+}
+
+body.style-win31 .title-btn:active {
+  border-color: var(--w31-line);
+  box-shadow: var(--w31-pressed);
+}
+
+body.style-win31 .title-btn-last {
+  margin-left: 0;
+}
+
+/* ---------- 按钮 ---------- */
+
+body.style-win31 .btn {
+  color: var(--w31-btn-text);
+  background: var(--w31-btn);
+  border: 1px solid var(--w31-line);
+  border-radius: 2px;
+  box-shadow: var(--w31-bevel);
+  font-weight: bold;
+}
+
+body.style-win31 .btn:active:not(:disabled) {
+  border-color: var(--w31-line);
+  box-shadow: var(--w31-pressed);
+}
+
+body.style-win31 .btn.default {
+  outline: 0;
+  border-width: 2px;
+}
+
+/* ---------- 工具栏 ---------- */
+
+body.style-win31 .toolbar {
+  gap: 3px;
+  padding: 3px;
+  border-bottom: 1px solid var(--w31-line);
+  box-shadow: none;
+}
+
+body.style-win31 .tool-btn {
+  color: var(--w31-btn-text);
+  background: var(--w31-btn);
+  border: 1px solid var(--w31-line);
+  border-radius: 2px;
+  box-shadow: var(--w31-bevel);
+  font-weight: bold;
+}
+
+body.style-win31 .tool-btn:hover:not(.active):not(.disabled) {
+  border-color: var(--w31-line);
+  color: var(--w31-btn-text);
+}
+
+body.style-win31 .tool-btn:active:not(.disabled),
+body.style-win31 .tool-btn.active {
+  padding: 1px 7px 0 9px;
+  border-color: var(--w31-line);
+  background: var(--w31-btn);
+  box-shadow: var(--w31-pressed);
+}
+
+body.style-win31 .tool-btn.disabled {
+  color: var(--gray-text);
+  text-shadow: none;
+}
+
+body.style-win31 .tool-sep {
+  width: 1px;
+  margin: 2px 3px;
+  border-left: 1px solid var(--w31-line);
+  border-right: 0;
+}
+
+/* ---------- 分组框 ---------- */
+
+body.style-win31 .groupbox {
+  border: 1px solid var(--w31-line);
+  box-shadow: none;
+}
+
+/* ---------- 选项卡：Win3.1 没有选项卡，改为紧贴的一排按钮 ----------
+ * 只能用 margin-right: -1px 共用边线，不能用 gap 或正的外边距拉开：
+ * 首页用 offsetWidth（不含外边距）计算放不下的选项卡。
+ */
+
+body.style-win31 .tabs {
+  padding-left: 0;
+}
+
+body.style-win31 .tab,
+body.style-win31 .tab.active {
+  height: 22px;
+  margin: 0 -1px 4px 0;
+  padding: 0 10px;
+  color: var(--w31-btn-text);
+  background: var(--w31-btn);
+  border: 1px solid var(--w31-line);
+  border-radius: 0;
+  box-shadow: var(--w31-bevel);
+  font-weight: bold;
+}
+
+body.style-win31 .tab.active {
+  padding: 1px 9px 0 11px;
+  box-shadow: var(--w31-pressed);
+}
+
+body.style-win31 .tab-count {
+  color: inherit;
+}
+
+body.style-win31 .tab-panel {
+  border: 1px solid var(--w31-line);
+  box-shadow: none;
+}
+
+/* ---------- 进度条：实心填充 ---------- */
+
+body.style-win31 .progress {
+  padding: 0;
+  border: 1px solid var(--w31-line);
+}
+
+body.style-win31 .progress-fill {
+  background: var(--bar);
+}
+
+body.style-win31 .progress-fill.hot {
+  background: var(--bar-hot);
+}
+
+body.style-win31 .progress-fill.unlimited {
+  background: var(--gray-text);
+}
+
+/* ---------- 列表与状态栏 ---------- */
+
+body.style-win31 .listview .col-head {
+  color: var(--w31-btn-text);
+  background: var(--w31-btn);
+  border: 1px solid var(--w31-line);
+  box-shadow: var(--w31-bevel);
+  font-weight: bold;
+}
+
+body.style-win31 .status-bar {
+  gap: 0;
+  background: var(--window);
+  border-top: 1px solid var(--w31-line);
+}
+
+body.style-win31 .status-field {
+  border: 0;
+  border-right: 1px solid var(--w31-line);
+}
+
+body.style-win31 .status-field:last-child {
+  border-right: 0;
+}
+
+/* ---------- 凹凸区域与下拉框 ---------- */
+
+body.style-win31 .sunken,
+body.style-win31 .thin-sunken,
+body.style-win31 .thin-raised {
+  border: 1px solid var(--w31-line);
+  box-shadow: none;
+}
+
+body.style-win31 .raised {
+  background: var(--w31-btn);
+  border: 1px solid var(--w31-line);
+  box-shadow: var(--w31-bevel);
+}
+
+body.style-win31 .select {
+  border: 1px solid var(--w31-line);
+  box-shadow: none;
+}
+
+/* ---------- 对话框与菜单（放在 .win 之后以覆盖其阴影） ---------- */
+
+body.style-win31 .dialog {
+  box-shadow: inset 0 0 0 3px var(--w31-frame), inset 0 0 0 4px var(--w31-line), 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+body.style-win31 .filter-menu,
+body.style-win31 .popup-menu {
+  padding: 0;
+  background: var(--window);
+  border: 1px solid var(--w31-line);
+  box-shadow: 2px 2px 0 var(--w31-line);
+}
+
+body.style-win31 .popup-menu-sep {
+  margin: 3px 0;
+  border-top-color: var(--w31-line);
+  border-bottom: 0;
+}
+
+/* ---------- 手机：主窗口铺满屏幕，去掉窗框 ---------- */
+
+@media (max-width: 768px) {
+  body.style-win31 .app-window {
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+}
