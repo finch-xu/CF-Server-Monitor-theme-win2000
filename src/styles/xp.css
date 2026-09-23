@@ -2,3 +2,355 @@
  * Windows XP（Luna）风格：body.style-xp
  * 深色为默认，body.style-xp.light 为浅色。只覆盖 win2000.css 中的变量与控件外形。
  */
+
+body.style-xp {
+  --desktop: #0b2447;
+  --face: #2d2d2d;
+  --hilight: #4a4a4a;
+  --light: #3a3a3a;
+  --shadow: #1c1c1c;
+  --dkshadow: #0e0e0e;
+  --window: #1e1e1e;
+  --window-alt: #252525;
+  --text: #e8e8e8;
+  --text-muted: #b4b4b4;
+  --gray-text: #7a7a7a;
+  --gray-text-shadow: transparent;
+  --title-text: #ffffff;
+  --title-off-text: #c8d4ee;
+  --select-bg: #316ac5;
+  --select-text: #ffffff;
+  --bar: #4a8af0;
+  --row-line: #2c2c2c;
+  --dither-a: #3a3a3a;
+  --dither-b: #2d2d2d;
+
+  --xp-frame: #0831d9;
+  --xp-frame-off: #5a6fa8;
+  --xp-title: linear-gradient(180deg, #3d95ff 0%, #0a5fee 10%, #0055e5 45%, #0060f8 85%, #0046c8 100%);
+  --xp-title-off: linear-gradient(180deg, #8ea2d6 0%, #7085c2 12%, #6a7fbd 50%, #7288c6 88%, #5a6fa8 100%);
+  --xp-control-border: #6a86c0;
+  --xp-field-border: #4a6a99;
+  --xp-btn: linear-gradient(180deg, #4d4d4d 0%, #3a3a3a 86%, #303030 100%);
+  --xp-btn-pressed: linear-gradient(180deg, #262626 0%, #2e2e2e 100%);
+  --xp-hover: #e5a01a;
+  --xp-default: #5a8ae0;
+  --xp-tab: linear-gradient(180deg, #3e3e3e 0%, #2f2f2f 100%);
+  --xp-tab-border: #5a5a5a;
+  --xp-group-border: #4a4a4a;
+  --xp-group-text: #8ab4ff;
+  --xp-progress: #2fbb3a;
+  --xp-head: linear-gradient(180deg, #3c3c3c 0%, #303030 100%);
+  --xp-head-line: #474747;
+
+  --sb-track: #262626;
+  --sb-thumb: linear-gradient(90deg, #3d5d9e 0%, #2f4d8a 100%);
+  --sb-button: #34528e;
+  --sb-border: var(--xp-field-border);
+  --sb-shadow: none;
+  --sb-radius: 3px;
+}
+
+body.style-xp.light {
+  --desktop: #004e98;
+  --face: #ece9d8;
+  --hilight: #ffffff;
+  --light: #f1efe2;
+  --shadow: #aca899;
+  --dkshadow: #716f64;
+  --window: #ffffff;
+  --window-alt: #f7f7f2;
+  --text: #000000;
+  --text-muted: #404040;
+  --gray-text: #aca899;
+  --title-off-text: #d8e4f8;
+  --bar: #316ac5;
+  --row-line: #eeeee8;
+  --dither-a: #ffffff;
+  --dither-b: #ece9d8;
+
+  --xp-frame-off: #7a96df;
+  --xp-title-off: linear-gradient(180deg, #a8bdf2 0%, #8aa3e6 12%, #7b97e0 50%, #86a0e6 88%, #7a96df 100%);
+  --xp-control-border: #003c74;
+  --xp-field-border: #7f9db9;
+  --xp-btn: linear-gradient(180deg, #ffffff 0%, #ecebe6 86%, #d6d0c5 100%);
+  --xp-btn-pressed: linear-gradient(180deg, #cdcac3 0%, #e3e3db 8%, #e5e5de 94%, #f2f2f1 100%);
+  --xp-default: #7da2ce;
+  --xp-tab: linear-gradient(180deg, #ffffff 0%, #f3f3ef 60%, #ecebe5 100%);
+  --xp-tab-border: #919b9c;
+  --xp-group-border: #d0d0bf;
+  --xp-group-text: #0046d5;
+  --xp-head: linear-gradient(180deg, #ffffff 0%, #f3f2ec 80%, #e9e8e0 100%);
+  --xp-head-line: #d6d2c2;
+
+  --sb-track: #f4f4f0;
+  --sb-thumb: linear-gradient(90deg, #cad8fb 0%, #b8cbf6 100%);
+  --sb-button: #c4d3fa;
+}
+
+/* ---------- 窗口与标题栏 ---------- */
+
+body.style-xp .win {
+  border: 3px solid var(--xp-frame);
+  border-top: 0;
+  border-radius: 8px 8px 0 0;
+  box-shadow: none;
+}
+
+body.style-xp .server-card.offline {
+  border-color: var(--xp-frame-off);
+}
+
+/* 标题栏盖住窗框顶部：左右各伸出 padding 3px + 边框 3px */
+body.style-xp .win > .title-bar {
+  height: 25px;
+  margin: -3px -6px 0;
+  padding: 0 5px 0 6px;
+  border-radius: 7px 7px 0 0;
+}
+
+body.style-xp .title-bar {
+  background: var(--xp-title);
+  color: var(--title-text);
+}
+
+body.style-xp .title-bar.inactive {
+  background: var(--xp-title-off);
+  color: var(--title-off-text);
+}
+
+body.style-xp .title-bar-text {
+  font-family: "Trebuchet MS", Tahoma, "SimSun", "宋体", "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  text-shadow: 1px 1px #0f1089;
+}
+
+body.style-xp .title-bar.inactive .title-bar-text {
+  text-shadow: none;
+}
+
+body.style-xp .app-window h1.title-bar-text {
+  font-size: 13px;
+}
+
+body.style-xp .title-btn {
+  height: 19px;
+  min-width: 19px;
+  padding: 0 4px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #6d9ef7 0%, #2d6ae3 45%, #1c52d0 100%);
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  box-shadow: inset -1px -1px 1px rgba(0, 0, 0, 0.25), inset 1px 1px 1px rgba(255, 255, 255, 0.35);
+}
+
+body.style-xp .title-btn:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg, #8fb6fa 0%, #4a82ee 45%, #2a62dc 100%);
+}
+
+body.style-xp .title-btn:active {
+  border-color: #ffffff;
+  background: linear-gradient(135deg, #1c47b8 0%, #2459d0 100%);
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* 对话框的关闭按钮为红色 */
+body.style-xp .dialog .title-btn {
+  background: linear-gradient(135deg, #f0a58c 0%, #e0553a 45%, #c73a1c 100%);
+}
+
+body.style-xp .dialog .title-btn:hover {
+  background: linear-gradient(135deg, #f7c0ad 0%, #ec6d52 45%, #d44a2a 100%);
+}
+
+/* ---------- 按钮 ---------- */
+
+body.style-xp .btn {
+  border: 1px solid var(--xp-control-border);
+  border-radius: 3px;
+  background: var(--xp-btn);
+  box-shadow: none;
+}
+
+body.style-xp .btn.default {
+  outline: 0;
+  box-shadow: inset 0 0 0 2px var(--xp-default);
+}
+
+body.style-xp .btn:hover:not(:disabled) {
+  box-shadow: inset 0 1px #ffe7a2, inset 0 -1px var(--xp-hover), inset 1px 0 #fbd78a, inset -1px 0 #fbd78a;
+}
+
+body.style-xp .btn:active:not(:disabled) {
+  padding: 0 10px;
+  border-color: var(--xp-control-border);
+  background: var(--xp-btn-pressed);
+  box-shadow: none;
+}
+
+body.style-xp .btn:disabled {
+  border-color: var(--shadow);
+  text-shadow: none;
+}
+
+/* ---------- 工具栏 ---------- */
+
+body.style-xp .toolbar {
+  padding: 3px;
+  box-shadow: none;
+}
+
+body.style-xp .tool-btn {
+  border-radius: 3px;
+}
+
+body.style-xp .tool-btn:hover:not(.active):not(.disabled) {
+  border-color: var(--shadow);
+  background: var(--xp-btn);
+}
+
+body.style-xp .tool-btn:active:not(.disabled),
+body.style-xp .tool-btn.active {
+  border-color: var(--xp-field-border);
+  background: var(--xp-btn-pressed);
+}
+
+body.style-xp .tool-btn.disabled {
+  text-shadow: none;
+}
+
+body.style-xp .tool-sep {
+  width: 1px;
+  border-right: 0;
+}
+
+/* ---------- 分组框与选项卡 ---------- */
+
+body.style-xp .groupbox {
+  border: 1px solid var(--xp-group-border);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+body.style-xp .groupbox > legend {
+  color: var(--xp-group-text);
+}
+
+body.style-xp .tab {
+  background: var(--xp-tab);
+  border: 1px solid var(--xp-tab-border);
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+body.style-xp .tab:hover,
+body.style-xp .tab.active {
+  border-top-color: #e68b2c;
+  box-shadow: inset 0 2px #ffc83c;
+}
+
+body.style-xp .tab.active {
+  background: var(--face);
+}
+
+body.style-xp .tab-panel {
+  border: 1px solid var(--xp-tab-border);
+  box-shadow: none;
+}
+
+/* ---------- 进度条 ---------- */
+
+body.style-xp .progress {
+  border: 1px solid var(--xp-field-border);
+  border-radius: 3px;
+}
+
+body.style-xp .progress-fill {
+  background: repeating-linear-gradient(90deg, var(--xp-progress) 0 7px, transparent 7px 9px);
+}
+
+body.style-xp .progress-fill.hot {
+  background: repeating-linear-gradient(90deg, var(--bar-hot) 0 7px, transparent 7px 9px);
+}
+
+body.style-xp .progress-fill.unlimited {
+  background: repeating-linear-gradient(90deg, var(--gray-text) 0 7px, transparent 7px 9px);
+}
+
+/* ---------- 列表与状态栏 ---------- */
+
+body.style-xp .listview .col-head {
+  height: 21px;
+  background: var(--xp-head);
+  border: 0;
+  border-right: 1px solid var(--xp-head-line);
+  box-shadow: inset 0 -3px var(--xp-head-line);
+}
+
+body.style-xp .status-bar {
+  padding-top: 2px;
+  border-top: 1px solid var(--shadow);
+}
+
+body.style-xp .status-field {
+  border: 0;
+  border-right: 1px solid var(--shadow);
+}
+
+body.style-xp .status-field:last-child {
+  border-right: 0;
+}
+
+/* ---------- 凹凸区域与下拉框 ---------- */
+
+body.style-xp .sunken,
+body.style-xp .thin-sunken {
+  border: 1px solid var(--xp-field-border);
+  box-shadow: none;
+}
+
+body.style-xp .raised,
+body.style-xp .thin-raised {
+  border: 1px solid var(--shadow);
+  border-radius: 3px;
+  box-shadow: none;
+}
+
+body.style-xp .select {
+  border: 1px solid var(--xp-field-border);
+  box-shadow: none;
+}
+
+/* ---------- 对话框与菜单（放在 .win 之后以覆盖其阴影） ---------- */
+
+body.style-xp .dialog {
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+body.style-xp .filter-menu,
+body.style-xp .popup-menu {
+  padding: 2px;
+  background: var(--window);
+  border: 1px solid var(--shadow);
+  border-radius: 0;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+body.style-xp .popup-menu-sep {
+  border-bottom: 0;
+}
+
+/* ---------- 手机：主窗口铺满屏幕，去掉窗框 ---------- */
+
+@media (max-width: 768px) {
+  body.style-xp .app-window {
+    border-width: 0;
+    border-radius: 0;
+  }
+
+  body.style-xp .app-window > .title-bar {
+    margin: -3px -3px 0;
+    border-radius: 0;
+  }
+}
