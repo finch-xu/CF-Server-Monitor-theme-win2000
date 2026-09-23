@@ -439,13 +439,19 @@ body.style-osx .tab-panel {
 
 /* ---------- 分组框：标题在框的上方 ----------
  * fieldset 有边框时 legend 会压在边线上，所以去掉 fieldset 的边框，框改由 ::before 绘制。
- * 这样统计框（.stat-box，overflow: hidden）里的标题也不会被裁掉。
+ * 「渲染中的」legend 在不同引擎里会被特殊处理：Chromium 会让 fieldset 的匿名内容框
+ * 从 legend 底部才开始，导致 absolute 定位的 ::before 也以那个内容框为准，框体被压扁到
+ * 文字下方而不是包住文字（用 float 让 legend 脱离文档流也不行：.stat-box 是
+ * white-space: nowrap，Chromium 会把文字挤到浮动 legend 旁边而不是另起一行）。
+ * 解决办法是把 legend 本身设为 position: absolute——绝对定位的 legend 不再是浏览器
+ * 特殊处理的「渲染标题」，fieldset 在各引擎里都会退化成普通块级元素，legend 和
+ * ::before 就都按 fieldset 的 padding box 定位，行为一致。
  */
 
 body.style-osx .groupbox {
   position: relative;
   isolation: isolate;
-  padding: 6px 10px 10px;
+  padding: 26px 10px 10px;
   border: 0;
   box-shadow: none;
 }
@@ -453,7 +459,7 @@ body.style-osx .groupbox {
 body.style-osx .groupbox::before {
   content: "";
   position: absolute;
-  inset: 20px 0 0;
+  inset: 18px 0 0;
   z-index: -1;
   border: 1px solid var(--osx-group-line);
   border-radius: 5px;
@@ -461,13 +467,21 @@ body.style-osx .groupbox::before {
 }
 
 body.style-osx .groupbox > legend {
-  margin: 0 0 0 -10px;
-  padding: 0 0 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   background: none;
   color: var(--text);
   font-size: 11px;
   font-weight: bold;
   line-height: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ---------- 进度条：蓝色玻璃质感 ---------- */
