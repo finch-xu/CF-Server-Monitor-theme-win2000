@@ -16,17 +16,28 @@
 - **外观**：经典浅色 + 深色两套配色，跟随后台 `preferred_theme`，也可以在标题栏切换；中英文跟随 `default_language`。
 - **错误提示**：加载失败、跨域被拦截、需要登录时，都会弹出对话框说明原因，不会静默跳转。
 
-## 安装
+## 安装 / 更新
 
-在 CF-Server-Monitor 后台的主题设置中填入主题地址。有三种写法：
+在 CF-Server-Monitor 后台切换：
 
-| 用途 | 地址 |
-| --- | --- |
-| 始终使用最新发布版 | `https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/tree/build` |
-| 固定某个版本 | `https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/tree/dist-v1.0.0` |
-| 固定某个 commit | `https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/tree/<build 分支上的 commit id>` |
+1. 进入后台 → **主题商店**，找到 **Win2000**；
+2. 点 **「点击加载版本」**，在下拉框中选择版本，最新的在最上面；
+3. 可以先点 **预览** 看效果，确认后点 **切换主题**。
 
-每个 [Release](https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/releases) 的说明末尾都列出了该版本对应的地址。也可以在后台的主题商店里直接选择版本，效果与固定 commit 相同。
+以后更新时重复以上步骤，选择新版本即可。加载版本需要能访问 `api.github.com`。
+
+<details>
+<summary>手动填写主题地址</summary>
+
+在后台主题商店的「自定义主题 URL」中填入某个版本的 commit 地址：
+
+```
+https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/tree/<build 分支上的 40 位 commit id>
+```
+
+每个 [Release](https://github.com/finch-xu/CF-Server-Monitor-theme-win2000/releases) 的说明末尾都给出了该版本的完整地址。commit 地址会被长期缓存，更新时换成新版本的地址即可。
+
+</details>
 
 ## 开发
 
@@ -51,9 +62,9 @@ npm run build
 1. 开发完成后推送到 `main`。
 2. 在 GitHub 上进入 Releases → Draft a new release，新建标签（例如 `v1.1.0`），填写标题和更新说明后发布。
 3. 大约一分钟后，GitHub Actions 会完成以下操作：
-   - 构建该版本，在 `build` 分支上追加一个 commit，commit 标题为 `v1.1.0 <Release 标题>`（主题商店会把它显示为版本名）；
-   - 给这个 commit 打上 `dist-v1.1.0` 标签；
-   - 把构建产物 `theme-v1.1.0.zip` 附到 Release 上，并在 Release 说明末尾追加主题地址。
+   - 构建该版本，在 `build` 分支上追加一个 commit，commit 标题为 `v1.1.0 <Release 标题>`。后台主题商店会把它显示为版本名和更新说明，所以 Release 标题建议写成一句话的更新说明；
+   - 给这个 commit 打上 `dist-v1.1.0` 标签（仅作内部参考）；
+   - 把构建产物 `theme-v1.1.0.zip` 附到 Release 上，并在 Release 说明末尾追加安装方式。
 
 `build` 分支会保留每个版本的历史，不会被覆盖。如果某次发布失败，可以在 Actions 里手动运行 **Release theme**，填入标签重新发布。标签只能包含字母、数字、`.`、`_`、`-`。
 
