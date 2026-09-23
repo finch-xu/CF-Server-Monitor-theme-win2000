@@ -3,3 +3,390 @@
  * 深色（参考 HUD 浮动面板）为默认，body.style-osx.light 为 Aqua 浅色。
  * 只覆盖 win2000.css 中的变量与控件外形；不使用 Apple 的图片、图标和字体文件。
  */
+
+/* ---------- 深色：HUD ---------- */
+
+body.style-osx {
+  --desktop: #120f24;
+  --face: #262626;
+  --hilight: #5a5a5a;
+  --light: #3a3a3a;
+  --shadow: #151515;
+  --dkshadow: #000000;
+  --window: #1c1c1c;
+  --window-alt: #242424;
+  --text: #f0f0f0;
+  --text-muted: #b8b8b8;
+  --gray-text: #8a8a8a;
+  --gray-text-shadow: transparent;
+  --title-text: #ffffff;
+  --title-off-text: #9a9a9a;
+  --select-bg: #3875d7;
+  --select-text: #ffffff;
+  --bar: #4b8fe8;
+  --bar-hot: #e0443e;
+  --online: #5fd35f;
+  --offline: #ff6b6b;
+  --tip-bg: #ffffc7;
+  --tip-text: #000000;
+  --link: #8cb8ff;
+  --link-hover: #b8d4ff;
+  --row-line: #2e2e2e;
+  --dither-a: #3a3a3a;
+  --dither-b: #262626;
+  --overlay: rgba(0, 0, 0, 0.35);
+
+  /* 状态色（延迟小方格、网速、使用率等） */
+  --accent-green: #5fd35f;
+  --accent-blue: #6aa8ff;
+  --accent-yellow: #ffcc33;
+  --accent-red: #ff6b6b;
+  --accent-cyan: #4fd8e8;
+  --accent-purple: #c49bff;
+
+  --osx-font: "Lucida Grande", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  /* 自绘的紫蓝色极光桌面（不使用 Apple 的 Aurora 壁纸） */
+  --osx-desktop:
+    radial-gradient(ellipse 80% 50% at 30% 20%, rgba(120, 90, 220, 0.45), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 75% 35%, rgba(60, 140, 230, 0.35), transparent 70%),
+    linear-gradient(180deg, #0c0a1c 0%, #1b1440 55%, #0a0818 100%);
+  --osx-window: rgba(30, 30, 30, 0.92);
+  --osx-window-edge: rgba(255, 255, 255, 0.18);
+  --osx-title: linear-gradient(180deg, #4a4a4a 0%, #2c2c2c 100%);
+  --osx-title-off: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+  --osx-toolbar: linear-gradient(180deg, #2c2c2c 0%, #232323 100%);
+  --osx-title-line: #0c0c0c;
+  --osx-title-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6);
+  --osx-light-off: #5a5a5a;
+  --osx-btn: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%);
+  --osx-btn-pressed: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.16) 100%);
+  --osx-btn-border: rgba(255, 255, 255, 0.35);
+  --osx-btn-text: #ffffff;
+  --osx-default: linear-gradient(180deg, #a8cdf8 0%, #6aa6ee 45%, #3d86e3 55%, #6fb2f5 100%);
+  --osx-default-border: #1f5fbf;
+  --osx-focus: rgba(106, 168, 255, 0.55);
+  --osx-scope-hover: rgba(255, 255, 255, 0.1);
+  --osx-scope-active: rgba(255, 255, 255, 0.28);
+  --osx-scope-active-text: #ffffff;
+  --osx-group-line: rgba(255, 255, 255, 0.22);
+  --osx-group-fill: rgba(255, 255, 255, 0.05);
+  --osx-track: linear-gradient(180deg, #151515 0%, #2a2a2a 100%);
+  --osx-fill: linear-gradient(180deg, #a8cdf8 0%, #5b9ceb 45%, #3d86e3 55%, #7bb6f3 100%);
+  --osx-fill-hot: linear-gradient(180deg, #f6a3a0 0%, #e0544e 45%, #c9302c 55%, #ee7d78 100%);
+  --osx-fill-off: linear-gradient(180deg, #9a9a9a 0%, #6a6a6a 100%);
+  --osx-head: linear-gradient(180deg, #3a3a3a 0%, #2c2c2c 100%);
+  --osx-head-line: #0f0f0f;
+  --osx-stripe: #232323;
+  --osx-menu: rgba(30, 30, 30, 0.95);
+  --osx-menu-hl: linear-gradient(180deg, #6a8de9 0%, #3b61d6 100%);
+  --osx-status: linear-gradient(180deg, #2e2e2e 0%, #1f1f1f 100%);
+
+  /* 图表:参照「活动监视器」的黑底 */
+  --graph-bg: #000000;
+  --graph-grid: #262626;
+  --graph-axis: #b0b0b0;
+  --graph-tip-bg: #ffffc7;
+  --graph-tip-text: #000000;
+  --graph-tip-border: #9a9a9a;
+  --graph-point-hover: #ffffff;
+  --graph-line-1: #33dd33;
+  --graph-line-2: #ff4040;
+  --graph-line-3: #3fa9ff;
+  --graph-line-4: #ffd23f;
+  --graph-line-5: #ff7de6;
+  --graph-line-6: #3fe0e0;
+  --graph-line-7: #ffffff;
+  --graph-line-8: #ff9f3f;
+
+  --sb-track: #1a1a1a;
+  --sb-thumb: linear-gradient(90deg, #6a6a6a 0%, #4a4a4a 100%);
+  --sb-button: #333333;
+  --sb-border: #0e0e0e;
+  --sb-shadow: none;
+  --sb-radius: 7px;
+
+  font-family: var(--osx-font);
+}
+
+/* ---------- 浅色:Aqua ---------- */
+
+body.style-osx.light {
+  --desktop: #3b2a78;
+  --face: #e8e8e8;
+  --hilight: #ffffff;
+  --light: #f4f4f4;
+  --shadow: #a5a5a5;
+  --dkshadow: #6e6e6e;
+  --window: #ffffff;
+  --window-alt: #f2f2f2;
+  --text: #000000;
+  --text-muted: #4d4d4d;
+  --gray-text: #8c8c8c;
+  --title-text: #262626;
+  --title-off-text: #8a8a8a;
+  --bar: #3875d7;
+  --bar-hot: #c9302c;
+  --online: #2f9e2f;
+  --offline: #d0312d;
+  --link: #1a5fcf;
+  --link-hover: #0a3f99;
+  --row-line: #e6e6e6;
+  --dither-a: #ffffff;
+  --dither-b: #e8e8e8;
+  --overlay: rgba(0, 0, 0, 0.2);
+
+  --accent-green: #2f9e2f;
+  --accent-blue: #1a5fcf;
+  --accent-yellow: #c98a00;
+  --accent-red: #d0312d;
+  --accent-cyan: #1a8fa8;
+  --accent-purple: #7a4cc4;
+
+  --osx-desktop:
+    radial-gradient(ellipse 80% 50% at 30% 25%, rgba(190, 150, 255, 0.75), transparent 70%),
+    radial-gradient(ellipse 60% 45% at 72% 38%, rgba(110, 180, 255, 0.7), transparent 70%),
+    linear-gradient(180deg, #2a1f5c 0%, #5a3fa0 50%, #1d1742 100%);
+  --osx-window: #e8e8e8;
+  --osx-window-edge: #8e8e8e;
+  --osx-title: linear-gradient(180deg, #e8e8e8 0%, #d3d3d3 100%);
+  --osx-title-off: linear-gradient(180deg, #f4f4f4 0%, #e6e6e6 100%);
+  --osx-toolbar: linear-gradient(180deg, #d3d3d3 0%, #bdbdbd 100%);
+  --osx-title-line: #858585;
+  --osx-title-text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  --osx-light-off: #cfcfcf;
+  --osx-btn: linear-gradient(180deg, #ffffff 0%, #f1f1f1 50%, #e3e3e3 51%, #f6f6f6 100%);
+  --osx-btn-pressed: linear-gradient(180deg, #c8c8c8 0%, #dcdcdc 100%);
+  --osx-btn-border: #8e8e8e;
+  --osx-btn-text: #000000;
+  --osx-focus: rgba(56, 117, 215, 0.5);
+  --osx-scope-hover: rgba(0, 0, 0, 0.08);
+  --osx-scope-active: #7a7a7a;
+  --osx-group-line: #b5b5b5;
+  --osx-group-fill: rgba(0, 0, 0, 0.05);
+  --osx-track: linear-gradient(180deg, #c9c9c9 0%, #f2f2f2 100%);
+  --osx-fill-off: linear-gradient(180deg, #d8d8d8 0%, #a8a8a8 100%);
+  --osx-head: linear-gradient(180deg, #ffffff 0%, #e6e6e6 100%);
+  --osx-head-line: #b8b8b8;
+  --osx-stripe: #edf3fe;
+  --osx-menu: rgba(255, 255, 255, 0.96);
+  --osx-status: linear-gradient(180deg, #d9d9d9 0%, #bcbcbc 100%);
+
+  --graph-bg: #ffffff;
+  --graph-grid: #e6e6e6;
+  --graph-axis: #555555;
+  --graph-tip-bg: #ffffc7;
+  --graph-tip-text: #000000;
+  --graph-tip-border: #9a9a9a;
+  --graph-point-hover: #333333;
+  --graph-line-1: #3875d7;
+  --graph-line-2: #4ea72e;
+  --graph-line-3: #e5921b;
+  --graph-line-4: #d0312d;
+  --graph-line-5: #8e5bd4;
+  --graph-line-6: #1fa3b8;
+  --graph-line-7: #7a7a7a;
+  --graph-line-8: #a0662f;
+
+  --sb-track: linear-gradient(90deg, #dcdcdc 0%, #f7f7f7 40%, #f7f7f7 100%);
+  --sb-thumb: linear-gradient(90deg, #a8cdf8 0%, #5b9ceb 45%, #3d86e3 55%, #7bb6f3 100%);
+  --sb-button: #e8e8e8;
+  --sb-border: #8e8e8e;
+}
+
+/* ---------- 桌面 ---------- */
+
+/* 用 :where 把优先级降到 0：后台配置的背景图（注入的 body { background: ... }）仍然优先 */
+:where(body.style-osx) {
+  background-image: var(--osx-desktop);
+  background-attachment: fixed;
+}
+
+/* ---------- 窗口与标题栏 ---------- */
+
+body.style-osx .win {
+  padding: 0;
+  background: var(--osx-window);
+  border: 1px solid var(--osx-window-edge);
+  border-radius: 6px 6px 4px 4px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+body.style-osx .app-window {
+  gap: 0;
+}
+
+body.style-osx .title-bar {
+  position: relative;
+  height: 22px;
+  padding: 0 6px 0 70px;
+  gap: 6px;
+  background: var(--osx-title);
+  color: var(--title-text);
+  font-size: 13px;
+  font-weight: normal;
+  text-shadow: var(--osx-title-text-shadow);
+  border-bottom: 1px solid var(--osx-title-line);
+  border-radius: 5px 5px 0 0;
+}
+
+body.style-osx .title-bar.inactive {
+  background: var(--osx-title-off);
+  color: var(--title-off-text);
+}
+
+/* 红黄绿三个按钮：纯装饰，不响应鼠标 */
+body.style-osx .title-bar::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 54px;
+  height: 12px;
+  margin-top: -6px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle closest-side, #ff8a80 0%, #e0443e 60%, #b4281f 92%, transparent 100%) 0 0 / 12px 12px no-repeat,
+    radial-gradient(circle closest-side, #ffe08a 0%, #dea123 60%, #a86d0a 92%, transparent 100%) 21px 0 / 12px 12px no-repeat,
+    radial-gradient(circle closest-side, #c4f08e 0%, #72b83a 60%, #3f7d19 92%, transparent 100%) 42px 0 / 12px 12px no-repeat;
+}
+
+/* 非活动窗口（离线卡片）：三个按钮变灰 */
+body.style-osx .title-bar.inactive::before {
+  background:
+    radial-gradient(circle closest-side, var(--osx-light-off) 0%, var(--osx-light-off) 88%, transparent 100%) 0 0 / 12px 12px no-repeat,
+    radial-gradient(circle closest-side, var(--osx-light-off) 0%, var(--osx-light-off) 88%, transparent 100%) 21px 0 / 12px 12px no-repeat,
+    radial-gradient(circle closest-side, var(--osx-light-off) 0%, var(--osx-light-off) 88%, transparent 100%) 42px 0 / 12px 12px no-repeat;
+}
+
+body.style-osx .title-bar-icon {
+  display: none;
+}
+
+/* 上面的 position: relative 优先级高于 app.css 的吸顶规则，主窗口标题栏要恢复 sticky（sticky 同样能给 ::before 定位） */
+body.style-osx .app-window > .title-bar {
+  position: sticky;
+  border-bottom: 0;
+}
+
+body.style-osx .app-window > .title-bar .title-bar-text {
+  text-align: center;
+}
+
+body.style-osx .app-window h1.title-bar-text {
+  font-size: 13px;
+  font-weight: normal;
+}
+
+body.style-osx .title-btn {
+  height: 18px;
+  min-width: 22px;
+  padding: 0 5px;
+  color: var(--osx-btn-text);
+  background: var(--osx-btn);
+  border: 1px solid var(--osx-btn-border);
+  border-radius: 4px;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+body.style-osx .title-btn:hover {
+  color: var(--osx-btn-text);
+}
+
+body.style-osx .title-btn:active {
+  border-color: var(--osx-btn-border);
+  background: var(--osx-btn-pressed);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* 工具栏与主窗口标题栏是同一块渐变 */
+body.style-osx .toolbar {
+  gap: 4px;
+  padding: 4px 8px 5px;
+  background: var(--osx-toolbar);
+  border-bottom: 1px solid var(--osx-title-line);
+  box-shadow: none;
+}
+
+/* ---------- 按钮 ---------- */
+
+body.style-osx .btn {
+  min-height: 22px;
+  padding: 0 14px;
+  color: var(--osx-btn-text);
+  background: var(--osx-btn);
+  border: 1px solid var(--osx-btn-border);
+  border-radius: 11px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+body.style-osx .btn:active:not(:disabled) {
+  padding: 0 14px;
+  border-color: var(--osx-btn-border);
+  background: var(--osx-btn-pressed);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* 默认按钮：蓝色玻璃质感，缓慢"呼吸" */
+body.style-osx .btn.default {
+  outline: 0;
+  color: #000000;
+  border-color: var(--osx-default-border);
+  background: var(--osx-default);
+  animation: osx-default-pulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes osx-default-pulse {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.12); }
+}
+
+body.style-osx .btn:disabled {
+  color: var(--gray-text);
+  text-shadow: none;
+  opacity: 0.7;
+}
+
+body.style-osx .btn:focus-visible,
+body.style-osx .tool-btn:focus-visible,
+body.style-osx .tab:focus-visible,
+body.style-osx .title-btn:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px var(--osx-focus);
+}
+
+/* ---------- 工具栏按钮 ---------- */
+
+body.style-osx .tool-btn {
+  height: 22px;
+  padding: 0 9px;
+  color: var(--osx-btn-text);
+  background: var(--osx-btn);
+  border: 1px solid var(--osx-btn-border);
+  border-radius: 4px;
+}
+
+body.style-osx .tool-btn:hover:not(.active):not(.disabled) {
+  border-color: var(--osx-btn-border);
+  color: var(--osx-btn-text);
+}
+
+body.style-osx .tool-btn:active:not(.disabled),
+body.style-osx .tool-btn.active {
+  border-color: var(--osx-btn-border);
+  background: var(--osx-btn-pressed);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+body.style-osx .tool-btn.disabled {
+  color: var(--gray-text);
+  text-shadow: none;
+  opacity: 0.6;
+}
+
+body.style-osx .tool-sep {
+  width: 1px;
+  margin: 3px 4px;
+  border-left: 1px solid var(--shadow);
+  border-right: 0;
+}
