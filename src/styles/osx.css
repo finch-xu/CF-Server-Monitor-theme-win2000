@@ -81,7 +81,7 @@ body.style-osx {
   --osx-menu-hl: linear-gradient(180deg, #6a8de9 0%, #3b61d6 100%);
   --osx-status: linear-gradient(180deg, #2e2e2e 0%, #1f1f1f 100%);
 
-  /* 图表:参照「活动监视器」的黑底 */
+  /* 图表：参照「活动监视器」的黑底 */
   --graph-bg: #000000;
   --graph-grid: #262626;
   --graph-axis: #b0b0b0;
@@ -108,7 +108,7 @@ body.style-osx {
   font-family: var(--osx-font);
 }
 
-/* ---------- 浅色:Aqua ---------- */
+/* ---------- 浅色：Aqua ---------- */
 
 body.style-osx.light {
   --desktop: #3b2a78;
@@ -121,7 +121,7 @@ body.style-osx.light {
   --window-alt: #f2f2f2;
   --text: #000000;
   --text-muted: #4d4d4d;
-  --gray-text: #8c8c8c;
+  --gray-text: #767676;
   --title-text: #262626;
   --title-off-text: #8a8a8a;
   --bar: #3875d7;
@@ -158,9 +158,9 @@ body.style-osx.light {
   --osx-btn-pressed: linear-gradient(180deg, #c8c8c8 0%, #dcdcdc 100%);
   --osx-btn-border: #8e8e8e;
   --osx-btn-text: #000000;
-  --osx-focus: rgba(56, 117, 215, 0.5);
+  --osx-focus: rgba(56, 117, 215, 0.8);
   --osx-scope-hover: rgba(0, 0, 0, 0.08);
-  --osx-scope-active: #7a7a7a;
+  --osx-scope-active: #6e6e6e;
   --osx-group-line: #b5b5b5;
   --osx-group-fill: rgba(0, 0, 0, 0.05);
   --osx-track: linear-gradient(180deg, #c9c9c9 0%, #f2f2f2 100%);
@@ -258,6 +258,27 @@ body.style-osx .title-bar.inactive::before {
     radial-gradient(circle closest-side, var(--osx-light-off) 0%, var(--osx-light-off) 88%, transparent 100%) 42px 0 / 12px 12px no-repeat;
 }
 
+/* 服务器卡片是小号窗口：红黄绿按钮缩小到 10px */
+body.style-osx .server-card .title-bar {
+  padding-left: 52px;
+}
+
+body.style-osx .server-card .title-bar::before {
+  width: 40px;
+  height: 10px;
+  margin-top: -5px;
+  background-size: 10px 10px;
+  background-position: 0 0, 15px 0, 30px 0;
+}
+
+body.style-osx .server-card .title-bar.inactive::before {
+  width: 40px;
+  height: 10px;
+  margin-top: -5px;
+  background-size: 10px 10px;
+  background-position: 0 0, 15px 0, 30px 0;
+}
+
 body.style-osx .title-bar-icon {
   display: none;
 }
@@ -351,8 +372,8 @@ body.style-osx .btn:focus-visible,
 body.style-osx .tool-btn:focus-visible,
 body.style-osx .tab:focus-visible,
 body.style-osx .title-btn:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 3px var(--osx-focus);
+  outline: 3px solid var(--osx-focus);
+  outline-offset: 0;
 }
 
 /* ---------- 工具栏按钮 ---------- */
@@ -376,6 +397,12 @@ body.style-osx .tool-btn.active {
   border-color: var(--osx-btn-border);
   background: var(--osx-btn-pressed);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* HUD 深色：选中项更亮，与普通按钮区分 */
+body.style-osx:not(.light) .tool-btn.active {
+  background: var(--osx-scope-active);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 body.style-osx .tool-btn.disabled {
@@ -410,7 +437,7 @@ body.style-osx .tab.active {
   background-clip: padding-box;
   border: 0 solid transparent;
   border-width: 0 3px;
-  border-radius: 10px;
+  border-radius: 13px / 10px;
   box-shadow: none;
   font-size: 11px;
   font-weight: bold;
@@ -549,6 +576,10 @@ body.style-osx .status-bar {
 
 body.style-osx .status-field {
   border: 0;
+}
+
+body.style-osx.light .status-bar a {
+  color: #0a3f99;
 }
 
 /* ---------- 凹凸区域、下拉框、徽章 ---------- */
