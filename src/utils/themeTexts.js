@@ -54,7 +54,13 @@ const THEME_TEXTS = {
     w2kSpeed: 'Speed',
     w2kUnlimited: 'Unlimited',
     w2kExpand: 'Expand chart',
-    w2kCollapse: 'Collapse chart'
+    w2kCollapse: 'Collapse chart',
+    w2kStyle: 'Style',
+    w2kStyleCurrent: 'Style: {name}',
+    w2kStyleDefault: 'Site default ({name})',
+    w2kStyleWin2000: 'Windows 2000',
+    w2kStyleXp: 'Windows XP',
+    w2kStyleWin31: 'Windows 3.1'
   },
   zh: {
     w2kLanguage: '语言',
@@ -108,7 +114,13 @@ const THEME_TEXTS = {
     w2kSpeed: '网速',
     w2kUnlimited: '不限',
     w2kExpand: '放大图表',
-    w2kCollapse: '收起图表'
+    w2kCollapse: '收起图表',
+    w2kStyle: '风格',
+    w2kStyleCurrent: '风格：{name}',
+    w2kStyleDefault: '站点默认（{name}）',
+    w2kStyleWin2000: 'Windows 2000',
+    w2kStyleXp: 'Windows XP',
+    w2kStyleWin31: 'Windows 3.1'
   }
 }
 

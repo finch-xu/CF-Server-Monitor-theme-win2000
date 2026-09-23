@@ -40,9 +40,14 @@
       <circle cx="8" cy="8" r="7" fill="#3cb043" stroke="#1e6b22" />
       <path d="M9.5 4l-4 4 4 4" stroke="#fff" stroke-width="2.2" fill="none" />
     </template>
-    <template v-else-if="name === 'gear'">
-      <circle cx="4.5" cy="4.5" r="2.2" fill="none" stroke="currentColor" stroke-width="1.4" />
-      <path d="M4.5 0v2M4.5 7v2M0 4.5h2M7 4.5h2" stroke="currentColor" stroke-width="1.4" />
+    <template v-else-if="name === 'home'">
+      <!-- 主页：斜屋顶 + 墙体，底部留出门洞 -->
+      <path d="M4.5 0L0 4.5h1V9h2.5V6h2v3H8V4.5h1z" fill="currentColor" />
+    </template>
+    <template v-else-if="name === 'display'">
+      <!-- 显示器：切换外观风格（对应 Win2000「显示 属性 → 外观」） -->
+      <path d="M0.5 0.5h8v5.5h-8z" fill="none" stroke="currentColor" />
+      <path d="M4.5 6v1.5M2 8.5h5" stroke="currentColor" />
     </template>
     <template v-else-if="name === 'contrast'">
       <circle cx="4.5" cy="4.5" r="3.8" fill="none" stroke="currentColor" />
@@ -92,7 +97,7 @@ const props = defineProps({
 })
 
 const LARGE = ['warning', 'error', 'info']
-const TINY = ['gear', 'contrast', 'sun', 'moon', 'restore']
+const TINY = ['home', 'display', 'contrast', 'sun', 'moon', 'restore']
 const viewBox = computed(() => {
   if (LARGE.includes(props.name)) return '0 0 32 32'
   if (TINY.includes(props.name)) return '0 0 9 9'

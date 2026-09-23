@@ -656,6 +656,64 @@ u.ak {
   border-radius: 0;
 }
 
+/* ---------- 弹出菜单 ---------- */
+
+.menu-anchor {
+  position: relative;
+  display: inline-flex;
+}
+
+.popup-menu {
+  position: absolute;
+  top: calc(100% + 2px);
+  right: 0;
+  z-index: 40;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: normal;
+  text-shadow: none;
+  color: var(--text);
+  box-shadow: inset 1px 1px var(--hilight), inset -1px -1px var(--shadow), 2px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.popup-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 12px 0 4px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.popup-menu-item:hover,
+.popup-menu-item:focus-visible {
+  background: var(--select-bg);
+  color: var(--select-text);
+  outline: none;
+}
+
+.popup-menu-check {
+  width: 14px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.popup-menu-sep {
+  height: 2px;
+  margin: 3px 2px;
+  border-top: 1px solid var(--shadow);
+  border-bottom: 1px solid var(--hilight);
+}
+
 /* ---------- 对话框 ---------- */
 
 .dialog-overlay {

@@ -20,13 +20,14 @@
         >
           <WinIcon :name="themeIcon" :size="9" />
         </button>
+        <StyleMenu />
         <a
           class="title-btn title-btn-last"
           :href="adminUrl"
           :title="trans.w2kAdmin"
           :aria-label="trans.w2kAdmin"
         >
-          <WinIcon name="gear" :size="9" />
+          <WinIcon name="home" :size="9" />
         </a>
       </header>
 
@@ -72,6 +73,7 @@
 import { computed, inject, onMounted, onUnmounted } from 'vue'
 import WinIcon from './components/WinIcon.vue'
 import WinDialog from './components/WinDialog.vue'
+import StyleMenu from './components/StyleMenu.vue'
 import { useTheme } from './composables/useTheme'
 import { currentLang, toggleLanguage, useTranslation } from './utils/i18n'
 import { LAST_WORKERS_VERSION, VERSION } from './utils/api'
