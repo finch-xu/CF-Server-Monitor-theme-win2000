@@ -15,10 +15,28 @@
     #boot .boot-fill { width: 40%; height: 100%; background: repeating-linear-gradient(90deg, #0a246a 0 8px, transparent 8px 10px); animation: boot-slide 1.6s steps(12) infinite; }
     #boot .boot-err { color: #a00000; }
     #boot .boot-hint { color: #404040; }
+    body.style-xp #boot { background: #0b2447; }
+    body.style-xp.light #boot { background: #004e98; }
+    body.style-xp #boot .boot-win { padding: 0 3px 3px; background: #ece9d8; border: 3px solid #0831d9; border-top: 0; border-radius: 8px 8px 0 0; box-shadow: none; }
+    body.style-xp #boot .boot-title { height: 25px; margin: 0 -6px; padding: 0 8px; border-radius: 7px 7px 0 0; font: bold 13px "Trebuchet MS", Tahoma, sans-serif; background: linear-gradient(180deg, #3d95ff 0%, #0a5fee 10%, #0055e5 45%, #0060f8 85%, #0046c8 100%); }
+    body.style-xp #boot .boot-bar { border: 1px solid #7f9db9; border-radius: 3px; }
+    body.style-xp #boot .boot-fill { background: repeating-linear-gradient(90deg, #2fbb3a 0 7px, transparent 7px 9px); }
+    body.style-win31 #boot { background: #000000; }
+    body.style-win31.light #boot { background: #c0c0c0; }
+    body.style-win31 #boot .boot-win { padding: 4px; background: #ffffff; border: 1px solid #000; box-shadow: inset 0 0 0 3px #c0c0c0, inset 0 0 0 4px #000; }
+    body.style-win31 #boot .boot-title { height: 20px; justify-content: center; font-size: 12px; background: #000080; }
+    body.style-win31 #boot .boot-bar { padding: 0; border: 1px solid #000; }
+    body.style-win31 #boot .boot-fill { background: #000080; }
+    body.style-osx #boot { background: linear-gradient(180deg, #0c0a1c 0%, #1b1440 55%, #0a0818 100%); }
+    body.style-osx.light #boot { background: linear-gradient(180deg, #2a1f5c 0%, #5a3fa0 50%, #1d1742 100%); }
+    body.style-osx #boot .boot-win { padding: 0; background: #e8e8e8; border: 1px solid #8e8e8e; border-radius: 6px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45); font-family: "Lucida Grande", "Helvetica Neue", Helvetica, "PingFang SC", sans-serif; }
+    body.style-osx #boot .boot-title { height: 22px; justify-content: center; font-weight: normal; font-size: 13px; color: #262626; border-bottom: 1px solid #858585; border-radius: 5px 5px 0 0; background: linear-gradient(180deg, #e8e8e8 0%, #d3d3d3 100%); }
+    body.style-osx #boot .boot-bar { padding: 0; border: 1px solid #8e8e8e; border-radius: 7px; background: linear-gradient(180deg, #c9c9c9 0%, #f2f2f2 100%); }
+    body.style-osx #boot .boot-fill { border-radius: 6px; background: linear-gradient(180deg, #a8cdf8 0%, #5b9ceb 45%, #3d86e3 55%, #7bb6f3 100%); }
     @keyframes boot-slide { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
   </style>
-  <script type="module" crossorigin src="./assets/index-Bf3JHG9i.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-B_XauR23.css">
+  <script type="module" crossorigin src="./assets/index-B8crQyUm.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BAiumTof.css">
 </head>
 <body>
   <script>
@@ -27,6 +45,9 @@
         var t = localStorage.getItem('theme_preference') || 'auto';
         var light = t === 'light' || (t !== 'dark' && !(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches));
         if (light) document.body.classList.add('light');
+        var visitor = String(localStorage.getItem('win2000_style') || '').trim().toLowerCase();
+        var style = (visitor === 'win2000' || visitor === 'xp' || visitor === 'win31' || visitor === 'osx') ? visitor : String(localStorage.getItem('win2000_style_site') || '').trim().toLowerCase();
+        if (style === 'xp' || style === 'win31' || style === 'osx') document.body.classList.add('style-' + style);
       } catch (e) {}
     })();
   </script>
