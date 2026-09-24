@@ -10,7 +10,8 @@
     "build": "vite build",
     "build:github-page": "node scripts/build-github-page.js",
     "preview": "vite preview",
-    "test": "node --test"
+    "test": "node --test",
+    "mock": "node scripts/mock-worker/mock-worker.mjs"
   },
   "dependencies": {
     "chart.js": "^4.4.0",

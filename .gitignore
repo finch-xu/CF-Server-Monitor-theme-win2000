@@ -155,3 +155,6 @@ CLAUDE.md
 
 docs/
 !docs/preview.png
+
+# 本地模拟 Worker 的样式快照
+scripts/mock-worker/snapshots/

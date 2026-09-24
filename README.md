@@ -65,6 +65,8 @@ npm run dev
 
 本地开发时，需要在 Worker 的 `CORS_ALLOWED_ORIGINS` 中加入本地地址。
 
+没有可用的 Worker 时，可以用本地模拟数据调试界面：不创建 `.env`，先运行 `npm run mock`（在 `localhost:8787` 提供随机生成的服务器数据），再运行 `npm run dev`。设置 `MOCK_STYLE=xp` 等环境变量可以模拟后台的默认风格。模拟 Worker 的代码在 `scripts/mock-worker/`，不会被打包进 `dist/`。
+
 ### 构建
 
 ```bash
