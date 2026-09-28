@@ -9,7 +9,7 @@ import './styles/osx.css'
 import './styles/app.css'
 import { applyDefaultLanguage, currentLang, translations } from './utils/i18n'
 import './utils/themeTexts'
-import { http } from './utils/http'
+import { http, DEFAULT_REQUEST_TIMEOUT_MS } from './utils/http'
 import { initConfig, hasMultipleApiBases } from './utils/config'
 import { LAST_AGENT_VERSION, LAST_WORKERS_VERSION, VERSION, normalizeLiveSocketTimeoutMinutes } from './utils/api'
 import { resolveDisplayMode } from './utils/displayMode'
@@ -98,7 +98,15 @@ const applyVersions = (config) => {
 
 async function fetchSingleConfig() {
   try {
-    const result = await http.get('/api/config', { includeAuth: true, includeTurnstile: true, autoRedirect: false })
+    let result = await http.get('/api/config', { includeAuth: true, includeTurnstile: true, autoRedirect: false, timeoutMs: DEFAULT_REQUEST_TIMEOUT_MS })
+
+    // 超时或 403：清掉可疑的 Turnstile 缓存，不带 header 重试走 bypass 路径
+    if (result.error && (result.timeout || result.status === 403)) {
+      localStorage.removeItem('turnstile_token')
+      localStorage.removeItem('turnstile_verified')
+      result = await http.get('/api/config', { includeAuth: true, includeTurnstile: false, includeTurnstileVerified: false, autoRedirect: false, timeoutMs: DEFAULT_REQUEST_TIMEOUT_MS })
+    }
+
     if (result.error || !result.data) {
       return { ...EMPTY_CONFIG, load_error: { status: result.status || 0, error: result.error || 'Request failed' } }
     }
@@ -164,7 +172,7 @@ function verifyTurnstileByIndex(siteKey, apiIndex = 0) {
       callback: async (token) => {
         setTurnstileToken(token)
         try {
-          const result = await http.getByIndex('/api/config', apiIndex, { includeAuth: false, includeTurnstile: true, autoRedirect: false })
+          const result = await http.getByIndex('/api/config', apiIndex, { includeAuth: false, includeTurnstile: true, autoRedirect: false, timeoutMs: DEFAULT_REQUEST_TIMEOUT_MS })
           resolve(!result.error && result.data && result.data.verified === true)
         } catch (e) {
           console.error('Failed to verify token:', e)

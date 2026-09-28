@@ -9,6 +9,9 @@ const DEFAULT_ERROR_MESSAGES = {
 }
 
 const TURNSTILE_VERIFIED_KEY = 'turnstile_verified'
+// 启动路径等关键请求的超时时长，需通过 options.timeoutMs 显式启用；
+// 未启用的请求（如 /updateDatabase、长历史查询）保持无超时，避免误伤合法慢接口
+export const DEFAULT_REQUEST_TIMEOUT_MS = 15_000
 
 // 主题不实现登录页：未授权时通知界面弹出「需要登录」对话框，由用户选择是否前往 /admin#admin
 const notifyAuthRequired = (baseUrl) => {
@@ -105,37 +108,59 @@ const handleResponse = async (res, options = {}) => {
   }
 }
 
+const doFetch = async (url, init, timeoutMs = null) => {
+  if (!timeoutMs) {
+    return fetch(url, init)
+  }
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    return await fetch(url, { ...init, signal: controller.signal })
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
 const request = async (method, url, body, options = {}) => {
-  const { includeAuth = true, includeTurnstile = true, autoRedirect = true, baseUrl = null } = options
+  const { includeAuth = true, includeTurnstile = true, autoRedirect = true, baseUrl = null, timeoutMs = null } = options
   const headers = createHeaders(includeAuth, includeTurnstile, baseUrl, options)
   const base = baseUrl || getApiBases()[0]
 
   try {
-    const res = await fetch(`${base}${url}`, {
+    const res = await doFetch(`${base}${url}`, {
       method,
       headers,
       body: body != null ? JSON.stringify(body) : undefined,
       credentials: 'include'
-    })
+    }, timeoutMs)
     return { ...(await handleResponse(res, { autoRedirect, baseUrl: base })), baseUrl: base }
   } catch (e) {
+    if (e.name === 'AbortError') {
+      return { error: 'timeout', status: 0, baseUrl: base, timeout: true }
+    }
     return { error: e.message || 'Network error', status: 0, baseUrl: base }
   }
 }
 
 const fetchWithBase = async (baseUrl, url, options, method = 'GET', body = null) => {
-  const { includeAuth = true, includeTurnstile = true, autoRedirect = true } = options
+  const { includeAuth = true, includeTurnstile = true, autoRedirect = true, timeoutMs = null } = options
   const headers = createHeaders(includeAuth, includeTurnstile, baseUrl, options)
 
-  const res = await fetch(`${baseUrl}${url}`, {
-    method,
-    headers,
-    body,
-    credentials: 'include'
-  })
-
-  const result = await handleResponse(res, { autoRedirect, baseUrl })
-  return { ...result, baseUrl }
+  try {
+    const res = await doFetch(`${baseUrl}${url}`, {
+      method,
+      headers,
+      body,
+      credentials: 'include'
+    }, timeoutMs)
+    const result = await handleResponse(res, { autoRedirect, baseUrl })
+    return { ...result, baseUrl }
+  } catch (e) {
+    if (e.name === 'AbortError') {
+      return { error: 'timeout', status: 0, baseUrl, timeout: true }
+    }
+    throw e
+  }
 }
 
 export const http = {

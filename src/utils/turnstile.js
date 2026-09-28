@@ -1,5 +1,5 @@
 // 移植自 CF-Server-Monitor 默认主题（MIT License, https://github.com/huilang-me/CF-Server-Monitor）
-import { http } from './http'
+import { http, DEFAULT_REQUEST_TIMEOUT_MS } from './http'
 
 const TURNSTILE_SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
 const TURNSTILE_TOKEN_KEY = 'turnstile_token'
@@ -49,9 +49,11 @@ export const hasTurnstileSiteKeyMismatch = (sites) => {
 }
 
 export const fetchAllTurnstileConfigs = async () => {
-  let results = await http.getAll('/api/config', { includeAuth: true, includeTurnstile: true, autoRedirect: false })
-  if (results.some(result => result.status === 403)) {
-    results = await http.getAll('/api/config', { includeAuth: true, includeTurnstile: false, autoRedirect: false })
+  let results = await http.getAll('/api/config', { includeAuth: true, includeTurnstile: true, autoRedirect: false, timeoutMs: DEFAULT_REQUEST_TIMEOUT_MS })
+  if (results.some(r => r.status === 403 || r.timeout)) {
+    localStorage.removeItem('turnstile_token')
+    localStorage.removeItem('turnstile_verified')
+    results = await http.getAll('/api/config', { includeAuth: true, includeTurnstile: false, includeTurnstileVerified: false, autoRedirect: false, timeoutMs: DEFAULT_REQUEST_TIMEOUT_MS })
   }
   return results
 }
